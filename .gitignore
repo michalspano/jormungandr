@@ -1,0 +1,20 @@
+# .gitignore - files to be ignored by git
+
+# ignore macOS binary
+*.DS_Store
+
+# ignore vs-code config
+.vscode/
+
+# ignore intelliJ config
+.idea/
+
+# exclude secrets
+.env
+*.env
+
+# exclude zip
+*.zip
+
+# exclude Java class files
+*.class
