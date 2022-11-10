@@ -1,4 +1,4 @@
-## Mini Project Group 10 ~ _'Snakey'_
+## Mini Project Group 10 ~ _'Jörmungandr'_
 
-<img src="docs/snakey.jpg" with=256 height=256>
+<img src="docs/jormungandr_red.png" with=128 height=128>
 
