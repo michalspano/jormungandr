@@ -5,6 +5,7 @@
 
 # ignore vs-code config
 .vscode/
+*tempCodeRunnerFile.r 
 
 # ignore intelliJ config
 .idea/
