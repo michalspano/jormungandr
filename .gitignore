@@ -9,6 +9,9 @@
 # ignore intelliJ config
 .idea/
 
+# deault output
+*Rplots.pdf
+
 # History files
 .Rhistory
 .Rapp.history
