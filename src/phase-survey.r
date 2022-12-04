@@ -1,10 +1,33 @@
-# Inception Phase Survey Analysis
+# <PHASE_TYPE> Phase Survey Analysis
+
+# accept command-line arguments
+args <- commandArgs(trailingOnly = TRUE)
+
+# ensure usage
+if (length(args) < 1) {
+  stop("Usage: Rscript phase-survey.r <PHASE_TYPE>")
+}
+
+# predefined phase types
+phase_types <- c("inception", "elaboration", "construction", "transition")
+
+# ensure phase type is valid
+phase_type <- tolower(args[1]) # define the phase type
+
+if (!phase_type %in% phase_types) {
+  stop("Invalid phase type. Supported phase types are: ",
+        paste(phase_types, collapse = ", "))
+}
+
+# continue with analysis
 
 output_dim <- c("w" = 800, "h" = 800) # default settings for output dimensions
-input_path <- "db/inception-phase-survey/"
-out_path   <- "out/inception-phase-survey/"
+wrap_max <- 100 # maximum number of words to wrap
+input_path <- paste("db/", phase_type, "-phase-survey/", sep = "")
+out_path <- paste("out/", phase_type, "-phase-survey/", sep = "")
 
-data <- read.csv(paste(input_path, "inception-phase-survey.csv", sep = ""))
+input_data_file <- paste(phase_type, "-phase-survey.csv", sep = "")
+data <- read.csv(paste(input_path, input_data_file, sep = ""))
 
 # create a dictionary from the data,
 # each key is a question and each value is a list of answers
@@ -14,8 +37,9 @@ for (col in names(data)) {
     data_dict[[col]] <- data[[col]]
 }
 
-# read the questions from inception-phase-survey-questions.txt
-raw_questions <- readLines(paste(input_path, "inception-phase-survey-questions.txt", sep = "")) # nolint
+# read the questions from <phase_type>-phase-survey-questions.txt
+input_questions_file <- paste(phase_type, "-phase-survey-questions.txt", sep = "")
+raw_questions <- readLines(paste(input_path, input_questions_file, sep = "")) # nolint
 
 questions <- list()
 
@@ -27,6 +51,15 @@ for (current_question in raw_questions) {
     key <- paste("q", idx, sep = "")
     formatted_question <- paste(idx, ". ", current_question, sep = "")
     questions[[key]] <- formatted_question
+
+    if (nchar(current_question) > wrap_max) {
+        temp_question <- strwrap(current_question, width = wrap_max)
+
+        # add index to first line of question
+        temp_question[1] <- paste(idx, ". ", temp_question[1], sep = "")
+        questions[[key]] <- temp_question
+    }
+
     idx <- idx + 1
 }
 
@@ -76,7 +109,7 @@ for (col in names(data)) {
 
     # generate pie chart(s), assign relative percentage to each slice,
     # construct legend
-    
+
     pie(col_freq, labels = relative_percentage, main = f_question,
         col = color_palette, border = color_palette, cex = 0.8)
 
