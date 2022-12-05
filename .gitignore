@@ -25,3 +25,4 @@ out/
 # macOS binary
 .DS_Store
 
+private/

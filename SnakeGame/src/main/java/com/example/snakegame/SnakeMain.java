@@ -1,4 +1,4 @@
-// SnakeGame
+// SnakeGame - initialBaseline branch
 
 package com.example.snakegame;
 
@@ -13,11 +13,9 @@ public class SnakeMain extends Application {
     @Override
     public void start(Stage stage) throws IOException {
 
-        final int[] DIMENSIONS = { 500, 500 }; // dimensions
-
         FXMLLoader fxmlLoader = new FXMLLoader(SnakeMain.class.getResource("snake-game.fxml"));
 
-        Scene scene = new Scene(fxmlLoader.load(), DIMENSIONS[0], DIMENSIONS[1]);
+        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
 
         stage.setTitle("Snake Game");
         stage.setScene(scene);
