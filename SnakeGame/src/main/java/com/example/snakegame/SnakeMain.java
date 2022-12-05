@@ -10,14 +10,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SnakeMain extends Application {
+    static final String FXML_SOURCE = "snakeMenu.fxml";
+
     @Override
     public void start(Stage stage) throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(SnakeMain.class.getResource("snake-game.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(SnakeMain.class.getResource(FXML_SOURCE));
+        Scene scene = new Scene(fxmlLoader.load());
 
-        Scene scene = new Scene(fxmlLoader.load(), 500, 500);
-
-        stage.setTitle("Snake Game");
+        stage.setTitle("Snake Game – Menu");
         stage.setScene(scene);
         stage.show();
     }
