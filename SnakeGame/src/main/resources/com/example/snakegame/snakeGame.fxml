@@ -12,7 +12,7 @@
                 <Font size="50.0" />
             </font>
         </Label>
-        <Button fx:id="dieButton" layoutX="584.0" layoutY="316.0" mnemonicParsing="false" onAction="#die" text="DIE">
+        <Button fx:id="gameOverButton" focusTraversable="false" layoutX="37.0" layoutY="601.0" mnemonicParsing="false" onAction="#gameOver" text="DIE">
             <font>
                 <Font size="50.0" />
             </font>
