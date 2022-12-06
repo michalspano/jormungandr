@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +24,9 @@ public class SnakeMainController {
 
     @FXML
     private Button homeButton;
+
+    @FXML
+    private Label randomQuote;
 
 
     // method to determine the current scene loaded to the stage
@@ -85,6 +89,7 @@ public class SnakeMainController {
     @FXML
     protected void gameOver(ActionEvent event) throws IOException {
         System.out.println("You died!");
+
         loadFXML(event, "snakeGameOver.fxml", "Game Over");
     }
 
@@ -97,6 +102,7 @@ public class SnakeMainController {
     @FXML
     protected void exitGame() {
         // abort the application process
+        // TODO: replace by the alert and a proper exit (not aborting the process)
         System.out.println("Exit game.");
         System.exit(0);
     }
