@@ -1,5 +1,8 @@
 package com.example.snakegame;
 
+/**
+ * The type Quote generator.
+ */
 public class QuoteGenerator {
 
     // TODO: fill in the 'actual' quotes (not dummy quotes)
@@ -10,9 +13,14 @@ public class QuoteGenerator {
             "Just a random quote (3)."
     };
 
-    // this method returns a random quote from the QUOTES array
+    /**
+     * Gets random quote from the {@code QUOTES} array.
+     * TODO: for now, the quotes are static. In the future, we will use an {@code API} to get random quotes.
+     * @return the random quote
+     */
     public String getRandomQuote() {
         int randomIndex = (int) (Math.random() * this.QUOTES.length);
         return this.QUOTES[randomIndex];
     }
+    public String[] getQuotes() { return this.QUOTES; }
 }

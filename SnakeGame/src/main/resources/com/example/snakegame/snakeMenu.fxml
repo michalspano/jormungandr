@@ -13,16 +13,21 @@
             <Font size="75.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#3d5938" height="129.0" layoutX="463.0" layoutY="147.0" stroke="BLACK" strokeType="INSIDE" width="418.0" />
-      <Button fx:id="startButton" layoutX="576.0" layoutY="321.0" mnemonicParsing="false" onAction="#startGame" text="Start">
+      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#3d5938" height="129.0" layoutX="455.0" layoutY="167.0" stroke="BLACK" strokeType="INSIDE" width="418.0" />
+      <Button fx:id="startButton" layoutX="568.0" layoutY="341.0" mnemonicParsing="false" onAction="#startGame" text="Start">
          <font>
             <Font size="50.0" />
          </font>
       </Button>
-      <Button fx:id="exitButton" layoutX="619.0" layoutY="453.0" mnemonicParsing="false" onAction="#exitGame" text="Exit">
+      <Button fx:id="exitButton" layoutX="611.0" layoutY="473.0" mnemonicParsing="false" onAction="#exitGame" text="Exit">
          <font>
             <Font size="30.0" />
          </font>
       </Button>
+      <Label layoutX="582.0" layoutY="214.0" text="Game's Logo" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
