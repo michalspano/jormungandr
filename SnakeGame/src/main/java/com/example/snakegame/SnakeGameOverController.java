@@ -1,6 +1,12 @@
+/***************************************************************************************************
+ * The Snake Game - Jörmungandr
+ * File: {@code SnakeGameOverController.java}
+ * Members: Michal Spano, Malte Bengtsson, Simone Graziosi, Feride Hansson, Anna Mäkinen, Katinka Romanus
+ * For DIT094 Mini Project: Team Programming; SEM@GU.
+ ***************************************************************************************************/
+
 package com.example.snakegame;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,9 +15,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**
- * The type Snake game over controller.
- */
 public class SnakeGameOverController {
 
     @FXML
@@ -44,8 +47,6 @@ public class SnakeGameOverController {
         randomQuote.setText(quoteGenerator.getRandomQuote());
     }
 
-    // TODO: actually display the score to the finalScoreCounter label
-
     /**
      * Sets user score.
      *
@@ -53,17 +54,14 @@ public class SnakeGameOverController {
      */
     @FXML
     protected void setUserScore(int score) {
-        System.out.println("Your score is: " + score);
         finalScoreCounter.setText("Score: " + score);
     }
 
     /**
      * Start game.
-     *
-     * @throws IOException the io exception
      */
     @FXML
-    protected void startGame() throws IOException {
+    protected void startGame() {
         Stage stage = getCurrentStage();
         instantiateScenes.instantiateGameScene(stage);
     }
@@ -71,11 +69,10 @@ public class SnakeGameOverController {
     /**
      * Go to menu.
      *
-     * @param event the event
      * @throws IOException the io exception
      */
     @FXML
-    protected void goToMenu(ActionEvent event) throws IOException {
+    protected void goToMenu() throws IOException {
         Stage stage = getCurrentStage();
         instantiateScenes.instantiateMenuScene(stage);
     }
