@@ -1,15 +1,24 @@
+/***************************************************************************************************
+ * The Snake Game - Jörmungandr
+ * File: {@code InstantiateScenes.java}
+ * Members: Michal Spano, Malte Bengtsson, Simone Graziosi, Feride Hansson, Anna Mäkinen, Katinka Romanus
+ * For DIT094 Mini Project: Team Programming; SEM@GU.
+ ***************************************************************************************************/
+
 package com.example.snakegame;
 
+import com.example.snakegame.snake.SnakeGame;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
 /** Modulate the instantiation of scenes.
  * {@link #initialiseFXMLLoader(String)} is used to instantiate the FXML loader given the {@code fxmlFileName}.
  * The class is used to instantiate the scenes of the game.
- * It is used to avoid code duplication and ehance the readability of the code.
+ * It is used to avoid code duplication and enhance the readability of the code.
  * Each method only expects the stage as a parameter and instantiates the scene.
  * We would like to use the same stage for all the scenes - this is why we pass the stage as a parameter.
  */
@@ -38,47 +47,48 @@ public class InstantiateScenes {
 
         Scene scene = new Scene(loader.load());
 
+        SnakeGameUtils.applyExitGameAlertToStage(stage);
+
         stage.setTitle("Snake Game – Menu");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 
     /**
-     * Instantiate the start scene.
+     * Instantiate game scene.
      *
      * @param stage the stage
-     * @throws IOException the io exception
      */
-    public void instantiateGameScene(Stage stage) throws IOException {
+    public void instantiateGameScene(Stage stage) {
         System.out.println("Starting the game... ");
 
-        FXMLLoader loader = initialiseFXMLLoader("snakeGame.fxml");
-        assert loader != null;
+        JSONObject config = SnakeGameUtils.loadJSONConfig();
+        JSONObject gameSettings = config.getJSONObject("gameSettings");
 
-        Scene scene = new Scene(loader.load());
+        // parse the game settings from the config file (JSON)
+        int initSnakeSize   = gameSettings.getInt("initialSnakeSize");
+        int cellSize        = gameSettings.getInt("cellSize");
+        int rows            = gameSettings.getInt("rows");
+        int columns         = gameSettings.getInt("columns");
+        int speed           = gameSettings.getInt("speed");
 
-        scene.setOnKeyPressed(keyEvent -> {
-            switch (keyEvent.getCode()) {
-                case W, UP -> System.out.println("UP");
-                case S, DOWN -> System.out.println("DOWN");
-                case A, LEFT -> System.out.println("LEFT");
-                case D, RIGHT -> System.out.println("RIGHT");
-                default -> System.out.println("OTHER");
-            }
-        });
+        SnakeGame snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed);
 
-        stage.setTitle("Snake Game");
-        stage.setScene(scene);
-        stage.show();
+        SnakeGameUtils.applyExitGameAlertToStage(stage);
+
+        snakeGame.start(stage);
     }
 
     /**
      * Instantiate game over scene.
+     * This method depends on the call from the {@link SnakeGame} class.
      *
      * @param stage the stage
+     * @param score the score
      * @throws IOException the io exception
      */
-    public void instantiateGameOverScene(Stage stage) throws IOException {
+    public void instantiateGameOverScene(Stage stage, int score) throws IOException {
         System.out.println("You died!");
 
         FXMLLoader loader = initialiseFXMLLoader("snakeGameOver.fxml");
@@ -86,17 +96,18 @@ public class InstantiateScenes {
 
         Scene scene = new Scene(loader.load());
 
+        // display a random quote
         SnakeGameOverController controller = loader.getController();
         controller.setRandomQuoteLabel();
 
-        /* TODO: fix this so that it actually displays the score (not a pre-defined value)
-         *       now, it just displays some random number */
+        // update the score
+        controller.setUserScore(score);
 
-        int someScore = (int) (Math.random() * 20 + 1);
-        controller.setUserScore(someScore);
+        SnakeGameUtils.applyExitGameAlertToStage(stage);
 
         stage.setTitle("Game Over");
         stage.setScene(scene);
+        stage.centerOnScreen();
         stage.show();
     }
 }
