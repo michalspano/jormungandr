@@ -1,16 +1,29 @@
-package com.example.snakegame.utils;
+/***************************************************************************************************
+ * The Snake Game - Jörmungandr
+ * File: {@code SnakeGameUtils.java} - the utility class for the Snake Game.
+ * Members: Michal Spano, Malte Bengtsson, Simone Graziosi, Feride Hansson, Anna Mäkinen, Katinka Romanus
+ * For DIT094 Mini Project: Team Programming; SEM@GU.
+ ***************************************************************************************************/
 
-import com.example.snakegame.snake.GridPiece;
-import javafx.event.ActionEvent;
+package com.example.snakegame;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
+
+import com.example.snakegame.snake.GridPiece;
+
+import javafx.event.ActionEvent;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.json.JSONObject;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 
 /**
@@ -18,6 +31,24 @@ import java.util.*;
  * The point is reusage of code.
  */
 public class SnakeGameUtils {
+    public static final Random random = new Random();
+
+    /**
+     * The constant images part of an anonymous class.
+     */
+    public static final Map<String, Image> images = new HashMap<>() {{
+        put("head", new Image(Objects.requireNonNull(getClass().getResource("images/snake_head.png")).toExternalForm()));
+        put("body", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece.png")).toExternalForm()));
+        put("enemyBody", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece_puffer.png")).toExternalForm()));
+        put("food", new Image(Objects.requireNonNull(getClass().getResource("images/puffer_fish.png")).toExternalForm()));
+        put("gameBackground", new Image(Objects.requireNonNull(getClass().getResource("images/gameBackground.png")).toExternalForm()));
+        put("enemy", new Image(Objects.requireNonNull(getClass().getResource("images/enemy.png")).toExternalForm()));
+        put("block", new Image(Objects.requireNonNull(getClass().getResource("images/block.png")).toExternalForm()));
+    }};
+
+    public static final String JSON_CONFIG_FILE = "SnakeGame/src/main/resources/config.json";
+    public static final String SESSION_SCORE = "SnakeGame/src/main/resources/score.json";
+
     /**
      * Exit game alert.
      * @param currentScene the current scene
@@ -36,20 +67,18 @@ public class SnakeGameUtils {
             stage.close();
         }
     }
-    public static final Random random = new Random();
 
     /**
-     * The constant images part of an anonymous class.
+     * Apply exit game alert to stage.
+     *
+     * @param stage the stage
      */
-    public static final Map<String, Image> images = new HashMap<>() {{
-        put("head", new Image(Objects.requireNonNull(getClass().getResource("images/snake_head.png")).toExternalForm()));
-        put("body", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece.png")).toExternalForm()));
-        put("enemyBody", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece_puffer.png")).toExternalForm()));
-        put("food", new Image(Objects.requireNonNull(getClass().getResource("images/puffer_fish.png")).toExternalForm()));
-        put("gameBackground", new Image(Objects.requireNonNull(getClass().getResource("images/gameBackground.png")).toExternalForm()));
-        put("enemy", new Image(Objects.requireNonNull(getClass().getResource("images/enemy.png")).toExternalForm()));
-        put("block", new Image(Objects.requireNonNull(getClass().getResource("images/block.png")).toExternalForm()));
-    }};
+    public static void applyExitGameAlertToStage(Stage stage) {
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            SnakeGameUtils.exitGameAlert(stage.getScene().getRoot());
+        });
+    }
 
     /**
      * Detect collision over iterable boolean.
@@ -83,6 +112,50 @@ public class SnakeGameUtils {
     }
 
     /**
+     * Load json config JSON object.
+     *
+     * @return the JSON object
+     */
+    public static JSONObject loadJSONConfig() {
+        String jsonString;
+        try {
+            jsonString = new String(Files.readAllBytes(Paths.get(JSON_CONFIG_FILE)));
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        return new JSONObject(jsonString);
+    }
+
+    /**
+     * Update game session (score).
+     *
+     * @param score the score
+     */
+    public static void updateGameSession(int score) {
+        JSONObject jsonObject = new JSONObject() {{ put("sessionMaxScore", score); }};
+        try {
+            Files.writeString(Paths.get(SESSION_SCORE), jsonObject.toString());
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+    }
+
+    /**
+     * Gets session max score.
+     *
+     * @return the session max score
+     */
+    public static int getSessionMaxScore() {
+        JSONObject jsonObject;
+        try {
+            jsonObject = new JSONObject(Files.readString(Paths.get(SESSION_SCORE)));
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
+        return jsonObject.getInt("sessionMaxScore");
+    }
+
+    /**
      * Snake logger.
      *
      * @param snake the snake
@@ -107,7 +180,6 @@ public class SnakeGameUtils {
 
         return Color.rgb(red, green, blue);
     }
-
 
     /**
      * Current scene string.
