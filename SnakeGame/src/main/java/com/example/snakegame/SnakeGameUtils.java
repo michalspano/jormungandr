@@ -36,7 +36,7 @@ public class SnakeGameUtils {
     /**
      * The constant images part of an anonymous class.
      */
-    public static final Map<String, Image> images = new HashMap<>() {{
+    public static final Map<String, Image> IMAGES = new HashMap<>() {{
         put("head", new Image(Objects.requireNonNull(getClass().getResource("images/snake_head.png")).toExternalForm()));
         put("body", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece.png")).toExternalForm()));
         put("enemyBody", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece_puffer.png")).toExternalForm()));
@@ -46,6 +46,15 @@ public class SnakeGameUtils {
         put("block", new Image(Objects.requireNonNull(getClass().getResource("images/block.png")).toExternalForm()));
     }};
 
+    /**
+     * The constant CSS styles part of an anonymous class.
+     */
+    public static final Map<String, String> CSS_STYLES = new HashMap<>() {{
+        put("menu", Objects.requireNonNull(getClass().getResource("css/menu.css")).toExternalForm());
+        put("gameOver", Objects.requireNonNull(getClass().getResource("css/menu.css")).toExternalForm());
+    }};
+
+    // TODO: add the JSON sources to a HashMap (instead of using 2 separate variables)
     public static final String JSON_CONFIG_FILE = "SnakeGame/src/main/resources/config.json";
     public static final String SESSION_SCORE = "SnakeGame/src/main/resources/score.json";
 
@@ -108,7 +117,7 @@ public class SnakeGameUtils {
      * @param height    the height
      */
     public static void drawImage(GraphicsContext gc, String imageName, int x, int y, int width, int height) {
-        gc.drawImage(images.get(imageName), x, y, width, height);
+        gc.drawImage(IMAGES.get(imageName), x, y, width, height);
     }
 
     /**
