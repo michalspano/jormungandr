@@ -7,27 +7,27 @@
 
 <AnchorPane fx:id="gameOverScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame.SnakeGameOverController">
     <children>
-        <Label layoutX="436.0" layoutY="41.0" text="Game Over">
+        <Label layoutX="396.0" layoutY="37.0" text="Game Over!">
             <font>
                 <Font size="100.0" />
             </font>
         </Label>
         <Label fx:id="randomQuote" layoutX="830.0" layoutY="168.0" text="“A random quote.”">
             <font>
-                <Font size="30.0" />
+                <Font size="40.0" />
             </font>
         </Label>
-        <Label fx:id="finalScoreCounter" layoutX="614.0" layoutY="236.0" text="Score: N">
+        <Label fx:id="finalScoreCounter" layoutX="1038.0" layoutY="266.0" text="Score: N">
             <font>
                 <Font size="25.0" />
             </font>
         </Label>
-        <Button fx:id="restartButton" layoutX="552.0" layoutY="303.0" mnemonicParsing="false" onAction="#startGame" text="Restart">
+        <Button fx:id="restartButton" layoutX="971.0" layoutY="324.0" mnemonicParsing="false" onAction="#startGame" text="Restart">
             <font>
                 <Font size="50.0" />
             </font>
         </Button>
-        <Button fx:id="homeButton" layoutX="595.0" layoutY="429.0" mnemonicParsing="false" onAction="#goToMenu" text="Home">
+        <Button fx:id="homeButton" layoutX="1016.0" layoutY="450.0" mnemonicParsing="false" onAction="#goToMenu" text="Home">
             <font>
                 <Font size="35.0" />
             </font>
