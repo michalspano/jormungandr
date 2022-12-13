@@ -1,30 +1,23 @@
-// SnakeGame
+/***************************************************************************************************
+ * The Snake Game - Jörmungandr
+ * File: {@code SnakeMain.java}
+ * Members: Michal Spano, Malte Bengtsson, Simone Graziosi, Feride Hansson, Anna Mäkinen, Katinka Romanus
+ * For DIT094 Mini Project: Team Programming; SEM@GU.
+ ***************************************************************************************************/
 
 package com.example.snakegame;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class SnakeMain extends Application {
+
     @Override
     public void start(Stage stage) throws IOException {
-
-        final int[] DIMENSIONS = { 500, 500 }; // dimensions
-
-        FXMLLoader fxmlLoader = new FXMLLoader(SnakeMain.class.getResource("snake-game.fxml"));
-
-        Scene scene = new Scene(fxmlLoader.load(), DIMENSIONS[0], DIMENSIONS[1]);
-
-        stage.setTitle("Snake Game");
-        stage.setScene(scene);
-        stage.show();
+        InstantiateScenes instantiateScenes = new InstantiateScenes();
+        instantiateScenes.instantiateMenuScene(stage);
     }
-
-    public static void main(String[] args) {
-        launch();
-    }
+    public static void main(String[] args) { launch(); }
 }
