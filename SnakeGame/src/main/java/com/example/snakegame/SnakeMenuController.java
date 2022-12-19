@@ -9,8 +9,12 @@ package com.example.snakegame;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.util.Objects;
 
 public class SnakeMenuController {
     @FXML
@@ -20,7 +24,14 @@ public class SnakeMenuController {
     private Button exitButton;
 
     @FXML
+    public ImageView logo;
+    public ImageView menuBackground;
+
+    @FXML
     private AnchorPane menuGameScene;
+
+    Image gameLogo = new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/logo.png")));
+    Image background = new Image(Objects.requireNonNull(getClass().getResourceAsStream("images/menu_background_image.jpg")));
 
     InstantiateScenes instantiateScenes = new InstantiateScenes(); // composition
 

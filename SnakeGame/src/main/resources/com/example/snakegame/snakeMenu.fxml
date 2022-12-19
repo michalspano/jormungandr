@@ -2,32 +2,37 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="menuGameScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame.SnakeMenuController">
    <children>
-      <Label layoutX="507.0" layoutY="33.0" text="The Snake">
+      <ImageView fx:id="menuBackground" fitHeight="829.0" fitWidth="1301.0" layoutX="-7.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/menu_background_image.jpg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="logo" fitHeight="150.0" fitWidth="421.0" layoutX="420.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@images/logo.png" />
+         </image>
+      </ImageView>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="481.0" layoutY="35.0" text="The Snake" textAlignment="CENTER" wrapText="true">
          <font>
             <Font size="75.0" />
          </font>
       </Label>
-      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="#3d5938" height="129.0" layoutX="455.0" layoutY="167.0" stroke="BLACK" strokeType="INSIDE" width="418.0" />
-      <Button fx:id="startButton" layoutX="514.0" layoutY="342.0" mnemonicParsing="false" onAction="#startGame" prefHeight="96.0" prefWidth="301.0" text="Start">
+      <Button fx:id="startButton" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="339.0" mnemonicParsing="false" onAction="#startGame" prefHeight="96.0" prefWidth="414.0" text="Start">
          <font>
-            <Font size="50.0" />
+            <Font size="33.0" />
          </font>
       </Button>
-      <Button fx:id="exitButton" layoutX="548.0" layoutY="466.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="90.0" prefWidth="232.0" text="Exit">
+      <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="416.0" layoutY="456.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="90.0" prefWidth="413.0" text="Exit">
          <font>
-            <Font size="45.0" />
+            <Font size="28.0" />
          </font>
       </Button>
-      <Label layoutX="582.0" layoutY="214.0" text="Game's Logo" textFill="WHITE">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
    </children>
 </AnchorPane>

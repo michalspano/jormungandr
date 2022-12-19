@@ -1,5 +1,39 @@
 /* FIXME: this is just some temp. source*/
 
 .root {
-    -fx-background-color: #b3b3b3;
+    -fx-background-color: #748C8B;
+}
+
+.label {
+    -fx-font-size: 5em;
+    -fx-font-fill: #ffffff;
+    -fx-font-weight: 800;
+    -fx-text-alignment: center;
+    -fx-font-family: Montserrat;
+}
+
+#restartButton {
+    -fx-background-color: #ffffff;
+    -fx-font-fill: #000000;
+    -fx-font-size: 3em;
+    -fx-background-radius: 30px;
+    -fx-font-family: Montserrat;
+}
+
+#restartButton:hover {
+    -fx-background-color: #dbdbdb;
+    -fx-transition-delay: 2s;
+}
+
+#homeButton {
+    -fx-background-color: #ffffff;
+    -fx-font-fill: #000000;
+    -fx-font-size: 2em;
+    -fx-background-radius: 30px;
+    -fx-font-family: Montserrat;
+}
+
+#homeButton:hover {
+    -fx-background-color: #dbdbdb;
+    -fx-transition-delay: 2s;
 }

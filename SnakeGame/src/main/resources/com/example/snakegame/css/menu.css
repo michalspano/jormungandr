@@ -1,5 +1,37 @@
 /* FIXME: this is just some temp. source*/
 
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
 .root {
-    -fx-background-color: #b3b3b3;
+    -fx-background-color: #748C8B;
+}
+
+.label {
+    -fx-font-size: 6em;
+    -fx-text-alignment: center;
+    -fx-font-family: 'VT323', monospace;
+}
+
+#startButton {
+    -fx-background-color: #ffffff;
+    -fx-font-fill: #000000;
+    -fx-font-size: 3em;
+    -fx-background-radius: 30px;
+    -fx-font-family: 'VT323', monospace;
+}
+
+#startButton:hover {
+    -fx-background-color: #dbdbdb;
+}
+
+#exitButton {
+    -fx-background-color: #ffffff;
+    -fx-font-fill: #000000;
+    -fx-font-size: 2em;
+    -fx-background-radius: 30px;
+    -fx-font-family: 'VT323', monospace;
+}
+
+#exitButton:hover {
+    -fx-background-color: #dbdbdb;
 }

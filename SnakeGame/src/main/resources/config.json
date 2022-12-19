@@ -1,7 +1,7 @@
 {
   "gameSettings": {
     "initialSnakeSize": 3,
-    "cellSize": 40,
+    "cellSize": 30,
     "rows": 25,
     "columns": 25,
     "speed": 8
