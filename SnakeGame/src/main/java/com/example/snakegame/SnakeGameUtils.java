@@ -37,13 +37,13 @@ public class SnakeGameUtils {
      * The constant images part of an anonymous class.
      */
     public static final Map<String, Image> IMAGES = new HashMap<>() {{
-        put("head", new Image(Objects.requireNonNull(getClass().getResource("images/snake_head.png")).toExternalForm()));
-        put("body", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece.png")).toExternalForm()));
-        put("enemyBody", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece_puffer.png")).toExternalForm()));
-        put("food", new Image(Objects.requireNonNull(getClass().getResource("images/puffer_fish.png")).toExternalForm()));
+        put("head", new Image(Objects.requireNonNull(getClass().getResource("images/game/snake_head.png")).toExternalForm()));
+        put("body", new Image(Objects.requireNonNull(getClass().getResource("images/game/snake_piece.png")).toExternalForm()));
+        put("enemyBody", new Image(Objects.requireNonNull(getClass().getResource("images/game/snake_piece_puffer.png")).toExternalForm()));
+        put("food", new Image(Objects.requireNonNull(getClass().getResource("images/game/puffer_fish.png")).toExternalForm()));
+        put("enemy", new Image(Objects.requireNonNull(getClass().getResource("images/game/enemy.png")).toExternalForm()));
+        put("block", new Image(Objects.requireNonNull(getClass().getResource("images/game/block.png")).toExternalForm()));
         put("gameBackground", new Image(Objects.requireNonNull(getClass().getResource("images/gameBackground.png")).toExternalForm()));
-        put("enemy", new Image(Objects.requireNonNull(getClass().getResource("images/enemy.png")).toExternalForm()));
-        put("block", new Image(Objects.requireNonNull(getClass().getResource("images/block.png")).toExternalForm()));
     }};
 
     /**
