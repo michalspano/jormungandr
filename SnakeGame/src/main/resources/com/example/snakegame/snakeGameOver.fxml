@@ -8,32 +8,33 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="gameOverScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame.SnakeGameOverController">
-    <ImageView fx:id="gameOver_background" fitHeight="837.0" fitWidth="1293.0" layoutX="-8.0" layoutY="-29.0" pickOnBounds="true" preserveRatio="true">
-        <Image url="@images/menu_background_image.jpg" />
+   <ImageView fitHeight="720.0" fitWidth="1280.0" pickOnBounds="true">
+      <image>
+         <Image url="@images/gameBackground.png" />
+      </image>
+   </ImageView>
+    <ImageView fx:id="gameOverAnimation" fitHeight="525.0" fitWidth="802.0" layoutX="-8.0" layoutY="166.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@images/GIF/gameover_animation.gif" />
     </ImageView>
-    <Label fx:id="GameOver" layoutX="430.0" layoutY="50.0" text="Game Over!" textAlignment="CENTER">
+    <Label fx:id="gameOverHeading" alignment="CENTER" layoutX="-5.0" layoutY="2.0" prefHeight="123.0" prefWidth="1288.0" text="Game Over!" textAlignment="CENTER" textFill="WHITE">
         <font>
             <Font size="100.0" />
         </font>
     </Label>
-    <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" layoutX="440.0" layoutY="200.0" text="“A random quote.”" textAlignment="CENTER">
+    <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" layoutX="723.0" layoutY="134.0" prefHeight="50.0" prefWidth="411.0" text="“A random quote.”" textAlignment="CENTER" textFill="WHITE">
         <font>
             <Font size="40.0" />
         </font>
     </Label>
-    <Label fx:id="finalScoreCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="570.0" layoutY="290.0" text="Score: N" textAlignment="CENTER">
+    <Label fx:id="finalScoreCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="879.0" layoutY="255.0" text="Score: N" textAlignment="CENTER" textFill="WHITE">
         <font>
             <Font size="25.0" />
         </font>
     </Label>
-    <Button fx:id="restartButton" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="339.0" mnemonicParsing="false" onAction="#startGame" prefHeight="96.0" prefWidth="414.0" text="Restart">
+    <Button fx:id="restartButton" alignment="CENTER" contentDisplay="CENTER" layoutX="880.0" layoutY="338.0" mnemonicParsing="false" onAction="#startGame" prefHeight="75.0" prefWidth="300.0" text="Restart">
         <font>
-            <Font size="33.0" />
+            <Font size="35.0" />
         </font>
     </Button>
-    <Button fx:id="homeButton" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="456.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="96.0" prefWidth="414.0" text="Home">
-        <font>
-            <Font size="28.0" />
-        </font>
-    </Button>
+   <Button fx:id="homeButton" layoutX="920.0" layoutY="432.0" mnemonicParsing="false" onAction="#goToMenu" prefHeight="75.0" prefWidth="225.0" text="Home" />
 </AnchorPane>
