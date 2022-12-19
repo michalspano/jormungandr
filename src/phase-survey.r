@@ -9,7 +9,22 @@ if (length(args) < 1) {
 }
 
 # predefined phase types
-phase_types <- c("inception", "elaboration", "construction", "transition")
+phase_types <- c(
+    "inception",
+    "elaboration",
+    "construction",
+    "transition"
+)
+
+# predefined color palette
+# to ensure consistency across all pie charts and readability
+global_color_palette <- c(
+    "#87CEEB", # answer 1
+    "#98FB98", # answer 2
+    "#DDA0DD", # answer 3
+    "#FFB6C1", # answer 4
+    "#e6ff69"  # answer 5
+)
 
 # ensure phase type is valid
 phase_type <- tolower(args[1]) # define the phase type
@@ -66,19 +81,21 @@ for (current_question in raw_questions) {
 # ------------------------- #
 # functions for the analysis
 
-# function to generate the color_palette
-generate_color_palette <- function(n, alpha) {
-    color_palette <- rainbow(n)
-    for (i in seq_along(color_palette)) {
-        color_palette[i] <- adjustcolor(color_palette[i], alpha.f = alpha)
-    }
-    color_palette
-}
-
 # function to generate the relative frequency of a data column
 calculate_relative_percentage <- function(data) {
     data <- round(data / sum(data) * 100, 2)
     paste(data, "%", sep = "")
+}
+
+# function to generate relative color palette
+# each question answer maps to a color in the global color palette
+relative_color_palette <- function(answers) {
+    colors <- c()
+    for (key in names(answers)) {
+        key_color_index <- as.numeric(key)
+        colors <- c(colors, global_color_palette[key_color_index])
+    }
+    colors
 }
 
 # ------------------------- #
@@ -104,8 +121,8 @@ for (col in names(data)) {
         height = output_dim[["h"]]
     )
 
-    # generate the colors
-    color_palette <- generate_color_palette(length(col_freq), 0.85)
+    # generate relative color palette
+    color_palette <- relative_color_palette(col_freq)
 
     # generate pie chart(s), assign relative percentage to each slice,
     # construct legend
