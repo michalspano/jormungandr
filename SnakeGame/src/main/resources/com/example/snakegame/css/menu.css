@@ -1,5 +1,3 @@
-/* FIXME: this is just some temp. source*/
-
 @import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 .root {
@@ -7,17 +5,24 @@
 }
 
 .label {
-    -fx-font-size: 6em;
     -fx-text-alignment: center;
     -fx-font-family: 'VT323', monospace;
 }
 
-#startButton {
+.button {
     -fx-background-color: #ffffff;
     -fx-font-fill: #000000;
-    -fx-font-size: 3em;
     -fx-background-radius: 30px;
     -fx-font-family: 'VT323', monospace;
+    -fx-padding: 0px;
+}
+
+#theSnake {
+    -fx-font-size: 9em;
+}
+
+#startButton {
+    -fx-font-size: 5em;
 }
 
 #startButton:hover {
@@ -25,11 +30,7 @@
 }
 
 #exitButton {
-    -fx-background-color: #ffffff;
-    -fx-font-fill: #000000;
-    -fx-font-size: 2em;
-    -fx-background-radius: 30px;
-    -fx-font-family: 'VT323', monospace;
+    -fx-font-size: 3em;
 }
 
 #exitButton:hover {

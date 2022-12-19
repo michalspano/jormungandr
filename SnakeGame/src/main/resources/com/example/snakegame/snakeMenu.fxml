@@ -8,31 +8,25 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="menuGameScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame.SnakeMenuController">
-   <children>
-      <ImageView fx:id="menuBackground" fitHeight="829.0" fitWidth="1301.0" layoutX="-7.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/menu_background_image.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="logo" fitHeight="150.0" fitWidth="421.0" layoutX="420.0" layoutY="155.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@images/logo.png" />
-         </image>
-      </ImageView>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="481.0" layoutY="35.0" text="The Snake" textAlignment="CENTER" wrapText="true">
-         <font>
-            <Font size="75.0" />
-         </font>
-      </Label>
-      <Button fx:id="startButton" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="339.0" mnemonicParsing="false" onAction="#startGame" prefHeight="96.0" prefWidth="414.0" text="Start">
-         <font>
-            <Font size="33.0" />
-         </font>
-      </Button>
-      <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="416.0" layoutY="456.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="90.0" prefWidth="413.0" text="Exit">
-         <font>
-            <Font size="28.0" />
-         </font>
-      </Button>
-   </children>
+   <ImageView fx:id="menuBackground" fitHeight="829.0" fitWidth="1301.0" layoutX="-7.0" layoutY="-17.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@images/menu_background_image.jpg" />
+   </ImageView>
+   <ImageView fx:id="logo" fitHeight="150.0" fitWidth="421.0" layoutX="420.0" layoutY="170.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@images/logo.png" />
+   </ImageView>
+   <Label fx:id="theSnake" alignment="CENTER" contentDisplay="CENTER" layoutX="400.0" layoutY="50.0" text="The Snake" textAlignment="CENTER" wrapText="true">
+      <font>
+         <Font size="75.0" />
+      </font>
+   </Label>
+   <Button fx:id="startButton" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="339.0" mnemonicParsing="false" onAction="#startGame" prefHeight="96.0" prefWidth="414.0" text="Start">
+      <font>
+         <Font size="33.0" />
+      </font>
+   </Button>
+   <Button fx:id="exitButton" alignment="CENTER" contentDisplay="CENTER" layoutX="413.0" layoutY="456.0" mnemonicParsing="false" onAction="#exitGame" prefHeight="96.0" prefWidth="414.0" text="Exit">
+      <font>
+         <Font size="28.0" />
+      </font>
+   </Button>
 </AnchorPane>

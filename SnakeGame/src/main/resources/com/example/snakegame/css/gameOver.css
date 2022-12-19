@@ -1,39 +1,38 @@
-/* FIXME: this is just some temp. source*/
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
 
 .root {
     -fx-background-color: #748C8B;
 }
 
 .label {
-    -fx-font-size: 5em;
-    -fx-font-fill: #ffffff;
-    -fx-font-weight: 800;
     -fx-text-alignment: center;
-    -fx-font-family: Montserrat;
+    -fx-font-family: 'VT323', monospace;
+}
+
+.button {
+    -fx-background-color: #ffffff;
+    -fx-font-fill: #000000;
+    -fx-background-radius: 30px;
+    -fx-font-family: 'VT323', monospace;
+    -fx-padding: 0px;
+}
+
+#theSnake {
+    -fx-font-size: 9em;
 }
 
 #restartButton {
-    -fx-background-color: #ffffff;
-    -fx-font-fill: #000000;
-    -fx-font-size: 3em;
-    -fx-background-radius: 30px;
-    -fx-font-family: Montserrat;
+    -fx-font-size: 5em;
 }
 
 #restartButton:hover {
     -fx-background-color: #dbdbdb;
-    -fx-transition-delay: 2s;
 }
 
 #homeButton {
-    -fx-background-color: #ffffff;
-    -fx-font-fill: #000000;
-    -fx-font-size: 2em;
-    -fx-background-radius: 30px;
-    -fx-font-family: Montserrat;
+    -fx-font-size: 3em;
 }
 
 #homeButton:hover {
     -fx-background-color: #dbdbdb;
-    -fx-transition-delay: 2s;
 }
