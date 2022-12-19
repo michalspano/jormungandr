@@ -288,15 +288,17 @@ public class SnakeGame extends Application {
         // default system font
         String fontName = Font.getFamilies().get(0);
 
-        // display the score
+        // TODO: make the score display more appealing
+
+        // display the current score
         gc.setFill(Color.WHITE);
-        gc.setFont(new Font(fontName, 50));
-        gc.fillText("Score: " + currentScore, 20, 50);
+        gc.setFont(new Font(fontName, 30));
+        gc.fillText("Score: " + currentScore, 20, 30);
 
         // display the high score
         gc.setFill(Color.WHITE);
-        gc.setFont(new Font(fontName, 50));
-        gc.fillText("High Score: " + sessionMaxScore, 20, 110);
+        gc.setFont(new Font(fontName, 30));
+        gc.fillText("High Score: " + sessionMaxScore, 20, 70);
 
         // draw the snake
         String currentImageStr;
