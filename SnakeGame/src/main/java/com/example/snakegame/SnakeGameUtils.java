@@ -28,7 +28,7 @@ import java.util.*;
 
 /**
  * This is a static class that contains utility methods for the Snake Game.
- * The point is reusage of code.
+ * The point is re-usage of code.
  */
 public class SnakeGameUtils {
     public static final Random random = new Random();
@@ -51,13 +51,17 @@ public class SnakeGameUtils {
      */
     public static final Map<String, String> CSS_STYLES = new HashMap<>() {{
         put("menu", Objects.requireNonNull(getClass().getResource("css/menu.css")).toExternalForm());
-        put("gameOver", Objects.requireNonNull(getClass().getResource("css/menu.css")).toExternalForm());
+        put("gameOver", Objects.requireNonNull(getClass().getResource("css/gameOver.css")).toExternalForm());
     }};
 
-    // TODO: add the JSON sources to a HashMap (instead of using 2 separate variables)
-    public static final String JSON_CONFIG_FILE = "SnakeGame/src/main/resources/config.json";
-    public static final String SESSION_SCORE = "SnakeGame/src/main/resources/score.json";
-
+    /**
+     * The constant JSON source part of an anonymous class.
+     * We don't need to use the {@code getClass()} method here, since we are in a static context.
+     */
+    public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
+        put("config", "SnakeGame/src/main/resources/config.json");
+        put("score", "SnakeGame/src/main/resources/score.json");
+    }};
     /**
      * Exit game alert.
      * @param currentScene the current scene
@@ -128,7 +132,7 @@ public class SnakeGameUtils {
     public static JSONObject loadJSONConfig() {
         String jsonString;
         try {
-            jsonString = new String(Files.readAllBytes(Paths.get(JSON_CONFIG_FILE)));
+            jsonString = new String(Files.readAllBytes(Paths.get(JSON_SOURCES.get("config"))));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -143,7 +147,7 @@ public class SnakeGameUtils {
     public static void updateGameSession(int score) {
         JSONObject jsonObject = new JSONObject() {{ put("sessionMaxScore", score); }};
         try {
-            Files.writeString(Paths.get(SESSION_SCORE), jsonObject.toString());
+            Files.writeString(Paths.get(JSON_SOURCES.get("score")), jsonObject.toString());
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -157,7 +161,7 @@ public class SnakeGameUtils {
     public static int getSessionMaxScore() {
         JSONObject jsonObject;
         try {
-            jsonObject = new JSONObject(Files.readString(Paths.get(SESSION_SCORE)));
+            jsonObject = new JSONObject(Files.readString(Paths.get(JSON_SOURCES.get("score"))));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
