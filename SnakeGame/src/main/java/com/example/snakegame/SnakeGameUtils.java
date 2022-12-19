@@ -28,7 +28,7 @@ import java.util.*;
 
 /**
  * This is a static class that contains utility methods for the Snake Game.
- * The point is reusage of code.
+ * The point is re-usage of code.
  */
 public class SnakeGameUtils {
     public static final Random random = new Random();
@@ -36,19 +36,32 @@ public class SnakeGameUtils {
     /**
      * The constant images part of an anonymous class.
      */
-    public static final Map<String, Image> images = new HashMap<>() {{
-        put("head", new Image(Objects.requireNonNull(getClass().getResource("images/snake_head.png")).toExternalForm()));
-        put("body", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece.png")).toExternalForm()));
-        put("enemyBody", new Image(Objects.requireNonNull(getClass().getResource("images/snake_piece_puffer.png")).toExternalForm()));
-        put("food", new Image(Objects.requireNonNull(getClass().getResource("images/puffer_fish.png")).toExternalForm()));
+    public static final Map<String, Image> IMAGES = new HashMap<>() {{
+        put("head", new Image(Objects.requireNonNull(getClass().getResource("images/game/snake_head.png")).toExternalForm()));
+        put("body", new Image(Objects.requireNonNull(getClass().getResource("images/game/snake_piece.png")).toExternalForm()));
+        put("enemyBody", new Image(Objects.requireNonNull(getClass().getResource("images/game/snake_piece_puffer.png")).toExternalForm()));
+        put("food", new Image(Objects.requireNonNull(getClass().getResource("images/game/puffer_fish.png")).toExternalForm()));
+        put("enemy", new Image(Objects.requireNonNull(getClass().getResource("images/game/enemy.png")).toExternalForm()));
+        put("block", new Image(Objects.requireNonNull(getClass().getResource("images/game/block.png")).toExternalForm()));
         put("gameBackground", new Image(Objects.requireNonNull(getClass().getResource("images/gameBackground.png")).toExternalForm()));
-        put("enemy", new Image(Objects.requireNonNull(getClass().getResource("images/enemy.png")).toExternalForm()));
-        put("block", new Image(Objects.requireNonNull(getClass().getResource("images/block.png")).toExternalForm()));
     }};
 
-    public static final String JSON_CONFIG_FILE = "SnakeGame/src/main/resources/config.json";
-    public static final String SESSION_SCORE = "SnakeGame/src/main/resources/score.json";
+    /**
+     * The constant CSS styles part of an anonymous class.
+     */
+    public static final Map<String, String> CSS_STYLES = new HashMap<>() {{
+        put("menu", Objects.requireNonNull(getClass().getResource("css/menu.css")).toExternalForm());
+        put("gameOver", Objects.requireNonNull(getClass().getResource("css/gameOver.css")).toExternalForm());
+    }};
 
+    /**
+     * The constant JSON source part of an anonymous class.
+     * We don't need to use the {@code getClass()} method here, since we are in a static context.
+     */
+    public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
+        put("config", "SnakeGame/src/main/resources/config.json");
+        put("score", "SnakeGame/src/main/resources/score.json");
+    }};
     /**
      * Exit game alert.
      * @param currentScene the current scene
@@ -108,7 +121,7 @@ public class SnakeGameUtils {
      * @param height    the height
      */
     public static void drawImage(GraphicsContext gc, String imageName, int x, int y, int width, int height) {
-        gc.drawImage(images.get(imageName), x, y, width, height);
+        gc.drawImage(IMAGES.get(imageName), x, y, width, height);
     }
 
     /**
@@ -119,7 +132,7 @@ public class SnakeGameUtils {
     public static JSONObject loadJSONConfig() {
         String jsonString;
         try {
-            jsonString = new String(Files.readAllBytes(Paths.get(JSON_CONFIG_FILE)));
+            jsonString = new String(Files.readAllBytes(Paths.get(JSON_SOURCES.get("config"))));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -134,7 +147,7 @@ public class SnakeGameUtils {
     public static void updateGameSession(int score) {
         JSONObject jsonObject = new JSONObject() {{ put("sessionMaxScore", score); }};
         try {
-            Files.writeString(Paths.get(SESSION_SCORE), jsonObject.toString());
+            Files.writeString(Paths.get(JSON_SOURCES.get("score")), jsonObject.toString());
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
@@ -148,7 +161,7 @@ public class SnakeGameUtils {
     public static int getSessionMaxScore() {
         JSONObject jsonObject;
         try {
-            jsonObject = new JSONObject(Files.readString(Paths.get(SESSION_SCORE)));
+            jsonObject = new JSONObject(Files.readString(Paths.get(JSON_SOURCES.get("score"))));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }

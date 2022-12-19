@@ -46,6 +46,7 @@ public class InstantiateScenes {
         assert loader != null;
 
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(SnakeGameUtils.CSS_STYLES.get("menu")); // apply menu.css
 
         SnakeGameUtils.applyExitGameAlertToStage(stage);
 
@@ -95,6 +96,7 @@ public class InstantiateScenes {
         assert loader != null;
 
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(SnakeGameUtils.CSS_STYLES.get("gameOver")); // apply gameOver.css
 
         // display a random quote
         SnakeGameOverController controller = loader.getController();

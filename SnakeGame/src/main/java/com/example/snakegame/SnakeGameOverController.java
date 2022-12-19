@@ -10,25 +10,25 @@ package com.example.snakegame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class SnakeGameOverController {
-
     @FXML
     private Button homeButton;
-
     @FXML
     private Button restartButton;
-
     @FXML
     private Label randomQuote;
-
+    @FXML
+    public ImageView gameOverAnimation;
+    @FXML
+    public Label gameOverHeading;
     @FXML
     private Label finalScoreCounter;
-
     @FXML
     private AnchorPane gameOverScene;
 
