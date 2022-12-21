@@ -21,9 +21,9 @@
             <Font size="100.0" />
         </font>
     </Label>
-    <Label fx:id="randomQuote" alignment="CENTER" contentDisplay="CENTER" layoutX="723.0" layoutY="134.0" prefHeight="50.0" prefWidth="411.0" text="“A random quote.”" textAlignment="CENTER" textFill="WHITE">
+    <Label fx:id="randomQuote" alignment="TOP_CENTER" contentDisplay="CENTER" layoutX="-3.0" layoutY="158.0" prefHeight="50.0" prefWidth="1286.0" text="“A random quote.”" textAlignment="CENTER" textFill="WHITE">
         <font>
-            <Font size="40.0" />
+            <Font size="35.0" />
         </font>
     </Label>
     <Label fx:id="finalScoreCounter" alignment="CENTER" contentDisplay="CENTER" layoutX="879.0" layoutY="255.0" text="Score: N" textAlignment="CENTER" textFill="WHITE">

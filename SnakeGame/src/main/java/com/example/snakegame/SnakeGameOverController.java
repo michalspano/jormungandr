@@ -43,7 +43,13 @@ public class SnakeGameOverController {
      */
     @FXML
     protected void setRandomQuoteLabel() {
-        QuoteGenerator quoteGenerator = new QuoteGenerator();
+        QuoteGenerator quoteGenerator = null;
+        try {
+            quoteGenerator = new QuoteGenerator("quotes.txt"); // static file with quotes
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        assert quoteGenerator != null; // detect an error if the quote generator is not initialized
         randomQuote.setText(quoteGenerator.getRandomQuote());
     }
 
