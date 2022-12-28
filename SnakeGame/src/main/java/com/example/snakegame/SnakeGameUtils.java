@@ -158,7 +158,7 @@ public class SnakeGameUtils {
      *
      * @return the session max score
      */
-    public static int getSessionMaxScore() {
+    public static int getOverallMaxScore() {
         JSONObject jsonObject;
         try {
             jsonObject = new JSONObject(Files.readString(Paths.get(JSON_SOURCES.get("score"))));
@@ -176,6 +176,14 @@ public class SnakeGameUtils {
     public static void snakeLogger(List<GridPiece> snake) {
         for (GridPiece sp : snake) { System.out.print(sp + " "); }
         System.out.println(); // end line
+    }
+
+    /**
+     * Simply show a 'TODO' message and exit the thread.
+     */
+    public static void TODO() {
+        System.out.println("\u001B[31m" + "TODO: method not implemented" + "\u001B[0m");
+        System.exit(1);
     }
 
     /**
