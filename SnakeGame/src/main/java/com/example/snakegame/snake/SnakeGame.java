@@ -39,11 +39,12 @@ public class SnakeGame extends Application {
     private int foodX, foodY; // initial both 0
     private boolean gameOver; // initial false
     private int currentScore; // initial 0
-    private final int sessionMaxScore;
+    private final int MAX_SCORE;
+    private final int UPPER_PADDING;
     private SnakeDirection direction;
-    private final List<GridPiece> snake;
-    private final List<GridPiece> enemy;
-    private final List<GridPiece> blocks;
+    private final List<GridPiece> SNAKE;
+    private final List<GridPiece> ENEMY_LIST;
+    private final List<GridPiece> BLOCKS_LIST;
 
     /**
      * Instantiates a new Snake game.
@@ -53,28 +54,65 @@ public class SnakeGame extends Application {
      * @param rows             the rows
      * @param columns          the columns
      * @param speed            the speed
+     * @param upperPadding     the upper padding of the canvas
      */
-    public SnakeGame(int initialSnakeSize, int cellSize, int rows, int columns, int speed) {
+    public SnakeGame(int initialSnakeSize, int cellSize, int rows, int columns, int speed, int upperPadding) {
         this.INITIAL_SNAKE_SIZE = initialSnakeSize;
-        this.CELL_SIZE = cellSize;
-        this.ROW_COUNT = rows;
-        this.COLUMN_COUNT = columns;
-        this.speed = speed;
+        this.CELL_SIZE          = cellSize;
+        this.ROW_COUNT          = rows;
+        this.COLUMN_COUNT       = columns;
+        this.speed              = speed;
 
-        this.sessionMaxScore = SnakeGameUtils.getSessionMaxScore();
-        this.direction = SnakeDirection.DOWN; // default direction - go UP
-        this.snake = new ArrayList<>();
-        this.enemy = new ArrayList<>();
-        this.blocks = new ArrayList<>();
+        this.MAX_SCORE          = SnakeGameUtils.getOverallMaxScore();
+        this.UPPER_PADDING      = upperPadding;
+        this.direction          = SnakeDirection.DOWN; // default direction - go UP
+        this.SNAKE              = new ArrayList<>();
+        this.ENEMY_LIST         = new ArrayList<>();
+        this.BLOCKS_LIST        = new ArrayList<>();
     }
 
-    // TODO: add a new constructor for the mode where the lists are passed as parameters
-    // and saved as states to a JSON file
+    /**
+     * Instantiates a new Snake game (with the states pre-set).
+     * This is used in the preloading of the game with states from the config file.
+     *
+     * @param initialSnakeSize the initial snake size
+     * @param cellSize         the cell size
+     * @param rows             the rows
+     * @param columns          the columns
+     * @param speed            the speed
+     * @param upperPadding     the upper padding
+     * @param sessionScore     the session score
+     * @param direction        the direction
+     * @param snake            the snake
+     * @param enemyList        the enemy list
+     * @param blocksList       the blocks list
+     */
+    public SnakeGame(int initialSnakeSize, int cellSize, int rows, int columns, int speed, int upperPadding,
+                     int sessionScore, SnakeDirection direction, List<GridPiece> snake, List<GridPiece> enemyList,
+                     List<GridPiece> blocksList) {
+
+        this.INITIAL_SNAKE_SIZE = initialSnakeSize;
+        this.CELL_SIZE          = cellSize;
+        this.ROW_COUNT          = rows;
+        this.COLUMN_COUNT       = columns;
+        this.speed              = speed;
+
+        this.MAX_SCORE          = sessionScore;
+        this.UPPER_PADDING      = upperPadding;
+        this.direction          = direction;
+        this.SNAKE              = snake;
+        this.ENEMY_LIST         = enemyList;
+        this.BLOCKS_LIST        = blocksList;
+
+        // TODO: add the support of this constructor
+        SnakeGameUtils.TODO();
+    }
 
     /* initial setup of the game parameters */
     private void setInitialGameStates() {
-        for (int i = this.INITIAL_SNAKE_SIZE; i > 0; i--)
-            snake.add(new GridPiece(0, i));
+        for (int i = this.INITIAL_SNAKE_SIZE; i > 0; i--) {
+            SNAKE.add(new GridPiece(0, i));
+        }
 
         generateNewConsumable();
         generateNewEnemy();
@@ -86,11 +124,11 @@ public class SnakeGame extends Application {
         int x, y;
         do {
             x = SnakeGameUtils.random.nextInt(this.ROW_COUNT);
-            y = SnakeGameUtils.random.nextInt(this.COLUMN_COUNT);
+            y = SnakeGameUtils.random.nextInt(this.UPPER_PADDING, this.COLUMN_COUNT); // vertical upper padding
 
-        } while (SnakeGameUtils.detectCollisionOverIterable(x, y, snake) ||
-                SnakeGameUtils.detectCollisionOverIterable(x, y, enemy)  ||
-                SnakeGameUtils.detectCollisionOverIterable(x, y, blocks) ||
+        } while (SnakeGameUtils.detectCollisionOverIterable(x, y, SNAKE)      ||
+                SnakeGameUtils.detectCollisionOverIterable(x, y, ENEMY_LIST)  ||
+                SnakeGameUtils.detectCollisionOverIterable(x, y, BLOCKS_LIST) ||
                 (x == foodX && y == foodY));
         return new int[] { x, y };
     }
@@ -102,8 +140,8 @@ public class SnakeGame extends Application {
     }
 
     private void generateNewEnemy() {
-        int enemySize = SnakeGameUtils.random.nextInt(5) + 1;
-        enemy.clear();
+        int enemySize = SnakeGameUtils.random.nextInt(5) + 1; // TODO: avoid using magic number for the number of enemies
+        ENEMY_LIST.clear();
 
         int x, y;
         for (int i = 0; i < enemySize; i++) {
@@ -111,12 +149,13 @@ public class SnakeGame extends Application {
             x = position[0];
             y = position[1];
 
-            enemy.add(new GridPiece(x, y));
+            ENEMY_LIST.add(new GridPiece(x, y));
         }
     }
 
     private void generateBlockTerrain() {
-        final int CLUSTER_COUNT = 5, CLUSTER_SIZE = 3; // default pre-defined values
+        final int CLUSTER_COUNT = 5, CLUSTER_SIZE = 3;  // default pre-defined values
+                                                        // TODO: make these values configurable; avoid using magic numbers
 
         int clusterCount = SnakeGameUtils.random.nextInt(CLUSTER_COUNT) + 1;
         int blockCount;
@@ -131,7 +170,7 @@ public class SnakeGame extends Application {
             x = position[0];
             y = position[1];
 
-            blocks.add(new GridPiece(x, y));
+            BLOCKS_LIST.add(new GridPiece(x, y));
 
             for (int j = 0; j < blockCount; j++) {
 
@@ -147,7 +186,7 @@ public class SnakeGame extends Application {
                 x += offset[0];
                 y += offset[1];
 
-                blocks.add(new GridPiece(x, y));
+                BLOCKS_LIST.add(new GridPiece(x, y));
             }
         }
     }
@@ -191,7 +230,7 @@ public class SnakeGame extends Application {
                     scene.setFill(Color.BLACK);
 
                     // check if the score is a new high score, if so, update the JSON file
-                    if (currentScore > sessionMaxScore) {
+                    if (currentScore > MAX_SCORE) {
                         SnakeGameUtils.updateGameSession(currentScore);
                     }
 
@@ -226,12 +265,12 @@ public class SnakeGame extends Application {
     public void tick(GraphicsContext gc) {
         // this for-loop ensures that the snake makes the illusion that it is moving
         // starting from the tail, each snake piece takes the position of the snake piece in front of it (an index lower)
-        for (int i = snake.size() - 1; i >= 1; i--) {
-            snake.get(i).setX(snake.get(i - 1).getX());
-            snake.get(i).setY(snake.get(i - 1).getY());
+        for (int i = SNAKE.size() - 1; i >= 1; i--) {
+            SNAKE.get(i).setX(SNAKE.get(i - 1).getX());
+            SNAKE.get(i).setY(SNAKE.get(i - 1).getY());
         }
 
-        final GridPiece HEAD = snake.get(0); // per each tick, there is only one head - constant
+        final GridPiece HEAD = SNAKE.get(0); // per each tick, there is only one head - constant
         switch (direction) {
             case UP     -> HEAD.setY(HEAD.getY() - 1);
             case DOWN   -> HEAD.setY(HEAD.getY() + 1);
@@ -241,7 +280,7 @@ public class SnakeGame extends Application {
 
         // detect if the snake is out of the screen
         // -1 in the upper bounds of the width, height is because the snake is drawn from the top left corner
-        if (snake.get(0).getX() < 0 || snake.get(0).getX() > this.ROW_COUNT - 1 || snake.get(0).getY() < 0 || snake.get(0).getY() > this.COLUMN_COUNT - 1) {
+        if (SNAKE.get(0).getX() < 0 || SNAKE.get(0).getX() > this.ROW_COUNT - 1 || SNAKE.get(0).getY() < 0 || SNAKE.get(0).getY() > this.COLUMN_COUNT - 1) {
             gameOver = true;
             return;
         }
@@ -249,8 +288,8 @@ public class SnakeGame extends Application {
         // detection if the snake eats the consumable
         if (foodX == HEAD.getX() && foodY == HEAD.getY()) {
 
-            GridPiece tail = snake.get(snake.size() - 1);
-            snake.add(new GridPiece(tail.getX(), tail.getY()));
+            GridPiece tail = SNAKE.get(SNAKE.size() - 1);
+            SNAKE.add(new GridPiece(tail.getX(), tail.getY()));
 
             // increase the speed after each food is eaten [optional]
             // speed++;
@@ -261,7 +300,7 @@ public class SnakeGame extends Application {
         }
 
         // iterate over snake.size(), skip [0] in an anonymous function
-        snake.stream().skip(1).forEach(piece -> {
+        SNAKE.stream().skip(1).forEach(piece -> {
             if (HEAD.getX() == piece.getX() && HEAD.getY() == piece.getY()) {
                 System.out.println("You ate yourself!");
                 gameOver = true;
@@ -269,14 +308,14 @@ public class SnakeGame extends Application {
         });
 
         // collision with enemy
-        if (SnakeGameUtils.detectCollisionOverIterable(HEAD.getX(), HEAD.getY(), enemy)) {
+        if (SnakeGameUtils.detectCollisionOverIterable(HEAD.getX(), HEAD.getY(), ENEMY_LIST)) {
             System.out.println("You ate an enemy!");
             gameOver = true;
             return;
         }
 
         // collision with blocks
-        if (SnakeGameUtils.detectCollisionOverIterable(HEAD.getX(), HEAD.getY(), blocks)) {
+        if (SnakeGameUtils.detectCollisionOverIterable(HEAD.getX(), HEAD.getY(), BLOCKS_LIST)) {
             System.out.println("You hit a block!");
             gameOver = true;
             return;
@@ -293,19 +332,21 @@ public class SnakeGame extends Application {
         // display the current score
         gc.setFill(Color.WHITE);
         gc.setFont(new Font(fontName, 30));
-        gc.fillText("Score: " + currentScore, 20, 30);
+        gc.fillText("Score: " + currentScore, 20,
+                                        this.CELL_SIZE);
 
         // display the high score
         gc.setFill(Color.WHITE);
         gc.setFont(new Font(fontName, 30));
-        gc.fillText("High Score: " + sessionMaxScore, 20, 70);
+        gc.fillText("High Score: " + MAX_SCORE, 20,
+                                        this.CELL_SIZE * 2);
 
         // draw the snake
         String currentImageStr;
-        for (int i = 0; i < snake.size(); i++) {
+        for (int i = 0; i < SNAKE.size(); i++) {
             if (i == 0) {
                 currentImageStr = "head";
-            } else if (i < snake.size() - currentScore) {
+            } else if (i < SNAKE.size() - currentScore) {
                 currentImageStr = "body";
             } else {
                 currentImageStr = "enemyBody";
@@ -313,8 +354,8 @@ public class SnakeGame extends Application {
 
             // draw the parts of the snake
             SnakeGameUtils.drawImage(gc, currentImageStr,
-                    snake.get(i).getX() * this.CELL_SIZE,
-                    snake.get(i).getY() * this.CELL_SIZE,
+                    SNAKE.get(i).getX() * this.CELL_SIZE,
+                    SNAKE.get(i).getY() * this.CELL_SIZE,
                     this.CELL_SIZE, this.CELL_SIZE);
         }
 
@@ -325,14 +366,14 @@ public class SnakeGame extends Application {
                 this.CELL_SIZE, this.CELL_SIZE);
 
         // draw the enemies
-        for (GridPiece ep : enemy)
+        for (GridPiece ep : ENEMY_LIST)
             SnakeGameUtils.drawImage(gc, "enemy",
                     ep.getX() * this.CELL_SIZE,
                     ep.getY() * this.CELL_SIZE,
                     this.CELL_SIZE, this.CELL_SIZE);
 
         // draw the blocks
-        for (GridPiece bp : blocks)
+        for (GridPiece bp : BLOCKS_LIST)
             SnakeGameUtils.drawImage(gc, "block",
                     bp.getX() * this.CELL_SIZE,
                     bp.getY() * this.CELL_SIZE,
