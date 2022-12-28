@@ -20,7 +20,7 @@ import java.io.IOException;
  * The class is used to instantiate the scenes of the game.
  * It is used to avoid code duplication and enhance the readability of the code.
  * Each method only expects the stage as a parameter and instantiates the scene.
- * We would like to use the same stage for all the scenes - this is why we pass the stage as a parameter.
+ * We would like to use the same stage for all the scenes - this is wh  y we pass the stage as a parameter.
  */
 public class InstantiateScenes {
 
@@ -73,8 +73,9 @@ public class InstantiateScenes {
         int rows            = gameSettings.getInt("rows");
         int columns         = gameSettings.getInt("columns");
         int speed           = gameSettings.getInt("speed");
+        int upperPadding    = gameSettings.getInt("upperPadding");
 
-        SnakeGame snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed);
+        SnakeGame snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed, upperPadding);
 
         SnakeGameUtils.applyExitGameAlertToStage(stage);
 
