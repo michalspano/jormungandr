@@ -19,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -61,6 +62,8 @@ public class SnakeGameUtils {
     public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
         put("config", "SnakeGame/src/main/resources/config.json");
         put("score", "SnakeGame/src/main/resources/score.json");
+        put("gameScenario1", "SnakeGame/src/main/resources/gameScenarios/gameScenario1.json");
+        // TODO: add the remaining game scenarios
     }};
     /**
      * Exit game alert.
@@ -129,14 +132,32 @@ public class SnakeGameUtils {
      *
      * @return the JSON object
      */
-    public static JSONObject loadJSONConfig() {
+    public static JSONObject loadJSONObject(String JSONIdentifier) {
         String jsonString;
         try {
-            jsonString = new String(Files.readAllBytes(Paths.get(JSON_SOURCES.get("config"))));
+            jsonString = new String(Files.readAllBytes(Paths.get(JSON_SOURCES.get(JSONIdentifier))));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
         return new JSONObject(jsonString);
+    }
+
+    /**
+     * Parse json array of objects to List of objects.
+     *
+     * @param jsonArray the json array
+     * @return the list
+     */
+    public static List<GridPiece> parseJSONArrayList(JSONArray jsonArray) {
+        List<GridPiece> tempArray = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            tempArray.add(new GridPiece(
+                    jsonObject.getInt("x"),
+                    jsonObject.getInt("y"))
+            );
+        }
+        return tempArray;
     }
 
     /**
@@ -166,6 +187,28 @@ public class SnakeGameUtils {
             throw new RuntimeException(exception);
         }
         return jsonObject.getInt("sessionMaxScore");
+    }
+
+    /**
+     * Gets the index of the preload file.
+     *
+     * @param params the params
+     * @return the preload index
+     * @throws Exception the exception
+     */
+    public static int getPreloadIndex(String[] params) throws Exception {
+        if (params.length == 0) return 0; // default value
+
+        // expected format: `gameScenario<number>` where 'gameScenario' is a constant identifier and <number> is an integer
+        String param = params[0];
+        String identifier = param.substring(0, param.length() - 1);
+        int idx = Integer.parseInt(param.substring(param.length() - 1));
+
+        // current supported identifiers and their corresponding indexes
+        if (identifier.equals("gameScenario") && (idx >= 1 && idx <= 5))
+            return idx;
+
+        throw new Exception("Invalid game scenario");
     }
 
     /**
