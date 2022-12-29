@@ -7,6 +7,8 @@
 
 package com.example.snakegame;
 
+import com.example.snakegame.snake.GridPiece;
+import com.example.snakegame.snake.SnakeDirection;
 import com.example.snakegame.snake.SnakeGame;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,13 +16,14 @@ import javafx.stage.Stage;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 /** Modulate the instantiation of scenes.
  * {@link #initialiseFXMLLoader(String)} is used to instantiate the FXML loader given the {@code fxmlFileName}.
  * The class is used to instantiate the scenes of the game.
  * It is used to avoid code duplication and enhance the readability of the code.
  * Each method only expects the stage as a parameter and instantiates the scene.
- * We would like to use the same stage for all the scenes - this is why we pass the stage as a parameter.
+ * We would like to use the same stage for all the scenes - this is wh  y we pass the stage as a parameter.
  */
 public class InstantiateScenes {
 
@@ -46,6 +49,7 @@ public class InstantiateScenes {
         assert loader != null;
 
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(SnakeGameUtils.CSS_STYLES.get("menu")); // apply menu.css
 
         SnakeGameUtils.applyExitGameAlertToStage(stage);
 
@@ -63,17 +67,41 @@ public class InstantiateScenes {
     public void instantiateGameScene(Stage stage) {
         System.out.println("Starting the game... ");
 
-        JSONObject config = SnakeGameUtils.loadJSONConfig();
+        int gamePreloadIndex = SnakeMain.gamePreloadIndex;
+
+        JSONObject config = SnakeGameUtils.loadJSONObject("config");
         JSONObject gameSettings = config.getJSONObject("gameSettings");
 
-        // parse the game settings from the config file (JSON)
+        // parse the game settings from the config file (JSON) - shared for all games
         int initSnakeSize   = gameSettings.getInt("initialSnakeSize");
         int cellSize        = gameSettings.getInt("cellSize");
         int rows            = gameSettings.getInt("rows");
         int columns         = gameSettings.getInt("columns");
         int speed           = gameSettings.getInt("speed");
+        int upperPadding    = gameSettings.getInt("upperPadding");
 
-        SnakeGame snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed);
+        SnakeGame snakeGame;
+
+        if (gamePreloadIndex == 0) { // a type of game without any preloading
+            snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed, upperPadding);
+        } else {
+            // marshal the game state from the JSON file
+            JSONObject gamePreloadObject = SnakeGameUtils.loadJSONObject("gameScenario" + gamePreloadIndex);
+            JSONObject gamePreload = gamePreloadObject.getJSONObject("gameState");
+
+            // parse the game state from the JSON file and assign it to the constructor of the preloaded game
+
+            int sessionScore            = gamePreload.getInt("sessionScore");
+            int foodX                   = gamePreload.getInt("foodX");
+            int foodY                   = gamePreload.getInt("foodY");
+            SnakeDirection direction    = SnakeDirection.valueOf(gamePreload.getString("direction"));
+            List<GridPiece> snake       = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("snake"));
+            List<GridPiece> enemyList   = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("enemy"));
+            List<GridPiece> blockList   = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("block"));
+
+            snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed, upperPadding,
+                            sessionScore, direction, foodX, foodY, snake, enemyList, blockList);
+        }
 
         SnakeGameUtils.applyExitGameAlertToStage(stage);
 
@@ -95,6 +123,7 @@ public class InstantiateScenes {
         assert loader != null;
 
         Scene scene = new Scene(loader.load());
+        scene.getStylesheets().add(SnakeGameUtils.CSS_STYLES.get("gameOver")); // apply gameOver.css
 
         // display a random quote
         SnakeGameOverController controller = loader.getController();

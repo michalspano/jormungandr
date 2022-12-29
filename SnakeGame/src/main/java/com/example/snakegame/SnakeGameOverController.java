@@ -10,25 +10,25 @@ package com.example.snakegame;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class SnakeGameOverController {
-
     @FXML
     private Button homeButton;
-
     @FXML
     private Button restartButton;
-
     @FXML
     private Label randomQuote;
-
+    @FXML
+    public ImageView gameOverAnimation;
+    @FXML
+    public Label gameOverHeading;
     @FXML
     private Label finalScoreCounter;
-
     @FXML
     private AnchorPane gameOverScene;
 
@@ -43,7 +43,13 @@ public class SnakeGameOverController {
      */
     @FXML
     protected void setRandomQuoteLabel() {
-        QuoteGenerator quoteGenerator = new QuoteGenerator();
+        QuoteGenerator quoteGenerator = null;
+        try {
+            quoteGenerator = new QuoteGenerator("quotes.txt"); // static file with quotes
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        assert quoteGenerator != null; // detect an error if the quote generator is not initialized
         randomQuote.setText(quoteGenerator.getRandomQuote());
     }
 

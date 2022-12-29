@@ -9,16 +9,21 @@ package com.example.snakegame;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 public class SnakeMenuController {
     @FXML
     private Button startButton;
-
     @FXML
     private Button exitButton;
-
+    @FXML
+    private Label snakeHeading;
+    @FXML
+    public ImageView logo;
+    public ImageView menuBackground;
     @FXML
     private AnchorPane menuGameScene;
 

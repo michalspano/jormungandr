@@ -1,0 +1,36 @@
+/***************************************************************************************************
+ * The Snake Game - Jörmungandr
+ * File: {@code gameOver.css}
+ * Members: Michal Spano, Malte Bengtsson, Simone Graziosi, Feride Hansson, Anna Mäkinen, Katinka Romanus
+ * For DIT094 Mini Project: Team Programming; SEM@GU.
+ ***************************************************************************************************/
+
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+
+.root { -fx-background-color: #748C8B; }
+
+.label {
+    -fx-text-alignment: center;
+    -fx-font-family: 'VT323', monospace;
+    -fx-effect: dropshadow(gaussian, rgba(100,100,100,0.3), 12.5, 0.5, 0, 0);
+}
+
+.button {
+    -fx-padding: 0px;
+    -fx-font-fill: #000;
+    -fx-background-radius: 30px;
+    -fx-font-family: 'VT323', monospace;
+    -fx-background-color: #fff;
+}
+
+#gameOverHeading    { -fx-font-size: 12em; }
+#finalScoreCounter  { -fx-font-size: 5em;  }
+#restartButton      { -fx-font-size: 4em;  }
+#homeButton         { -fx-font-size: 3em;  }
+
+#randomQuote { -fx-text-fill: #efefef; }
+
+#restartButton:hover, #homeButton:hover {
+    -fx-background-color: #dbdbdb;
+    -fx-translate-y: -1px;
+}
