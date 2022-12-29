@@ -28,6 +28,11 @@ import javafx.scene.paint.Color;
  * The type Snake game.
  */
 public class SnakeGame extends Application {
+    // global constants
+    public static final int ENEMY_COUNT = 5;
+    public static final int BLOCK_COUNT = 5;
+    public static final int BLOCK_SIZE = 3;
+
     // parsed from the config file
     private final int INITIAL_SNAKE_SIZE;
     private final int CELL_SIZE;
@@ -36,6 +41,7 @@ public class SnakeGame extends Application {
     private final int speed;
 
     // assigned in the constructor
+    private boolean isPreloaded;
     private int foodX, foodY; // initial both 0
     private boolean gameOver; // initial false
     private int currentScore; // initial 0
@@ -85,27 +91,29 @@ public class SnakeGame extends Application {
      * @param direction        the direction
      * @param snake            the snake
      * @param enemyList        the enemy list
-     * @param blocksList       the blocks list
+     * @param blockList       the blocks list
      */
     public SnakeGame(int initialSnakeSize, int cellSize, int rows, int columns, int speed, int upperPadding,
-                     int sessionScore, SnakeDirection direction, List<GridPiece> snake, List<GridPiece> enemyList,
-                     List<GridPiece> blocksList) {
+                     int sessionScore, SnakeDirection direction, int foodX, int foodY, List<GridPiece> snake,
+                     List<GridPiece> enemyList, List<GridPiece> blockList) {
 
         this.INITIAL_SNAKE_SIZE = initialSnakeSize;
         this.CELL_SIZE          = cellSize;
         this.ROW_COUNT          = rows;
         this.COLUMN_COUNT       = columns;
         this.speed              = speed;
+        this.isPreloaded        = true;
 
         this.MAX_SCORE          = sessionScore;
         this.UPPER_PADDING      = upperPadding;
         this.direction          = direction;
+        this.foodX              = foodX;
+        this.foodY              = foodY;
         this.SNAKE              = snake;
         this.ENEMY_LIST         = enemyList;
-        this.BLOCKS_LIST        = blocksList;
+        this.BLOCKS_LIST        = blockList;
 
-        // TODO: add the support of this constructor
-        SnakeGameUtils.TODO();
+        // SnakeGameUtils.TODO();
     }
 
     /* initial setup of the game parameters */
@@ -140,7 +148,7 @@ public class SnakeGame extends Application {
     }
 
     private void generateNewEnemy() {
-        int enemySize = SnakeGameUtils.random.nextInt(5) + 1; // TODO: avoid using magic number for the number of enemies
+        int enemySize = SnakeGameUtils.random.nextInt(ENEMY_COUNT) + 1;
         ENEMY_LIST.clear();
 
         int x, y;
@@ -154,17 +162,14 @@ public class SnakeGame extends Application {
     }
 
     private void generateBlockTerrain() {
-        final int CLUSTER_COUNT = 5, CLUSTER_SIZE = 3;  // default pre-defined values
-                                                        // TODO: make these values configurable; avoid using magic numbers
-
-        int clusterCount = SnakeGameUtils.random.nextInt(CLUSTER_COUNT) + 1;
+        int clusterCount = SnakeGameUtils.random.nextInt(BLOCK_COUNT) + 1;
         int blockCount;
         int x, y;
 
         final int[] POSITIONS = new int[] { -1, 0, 1 };
 
         for (int i = 0; i < clusterCount; i++) {
-            blockCount = SnakeGameUtils.random.nextInt(CLUSTER_SIZE) + 1;
+            blockCount = SnakeGameUtils.random.nextInt(BLOCK_SIZE) + 1;
 
             int[] position = generateRandomNonOverlappingGridPosition();
             x = position[0];
@@ -202,8 +207,10 @@ public class SnakeGame extends Application {
         Scene scene = new Scene(root, this.ROW_COUNT * this.CELL_SIZE, this.COLUMN_COUNT * this.CELL_SIZE);
         scene.setFill(Color.BLACK);
 
-        // set the initial game states
-        setInitialGameStates();
+        // set the initial game states (for not preloaded games)
+        if (!isPreloaded) {
+            setInitialGameStates();
+        }
 
         // control the snake with the keystrokes
         scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
@@ -379,6 +386,8 @@ public class SnakeGame extends Application {
                     bp.getY() * this.CELL_SIZE,
                     this.CELL_SIZE, this.CELL_SIZE);
     }
+
+    // TODO: add getters and setters
 
     public static void instantiate(String[] args) {
         launch(args);
