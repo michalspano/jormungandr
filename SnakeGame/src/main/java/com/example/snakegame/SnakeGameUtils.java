@@ -190,6 +190,7 @@ public class SnakeGameUtils {
     }
 
     /**
+     * TODO: refactor this method so we can support custom levels and not only the default one.
      * Gets the index of the preload file.
      *
      * @param params the params
