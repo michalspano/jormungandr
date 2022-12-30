@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="SnakeMain" type="Application" factoryName="Application" nameIsGenerated="true">
+  <configuration default="false" name="snake (default)" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="com.example.snakegame.SnakeMain" />
     <module name="SnakeGame.main" />
     <extension name="coverage">
