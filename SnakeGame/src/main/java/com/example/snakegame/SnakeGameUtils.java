@@ -62,9 +62,10 @@ public class SnakeGameUtils {
     public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
         put("config", "SnakeGame/src/main/resources/config.json");
         put("score", "SnakeGame/src/main/resources/score.json");
-        put("gameScenario1", "SnakeGame/src/main/resources/gameScenarios/gameScenario1.json");
+        put("snakeLevel1", "SnakeGame/src/main/resources/levels/snakeLevel1.json");
         // TODO: add the remaining game scenarios
     }};
+
     /**
      * Exit game alert.
      * @param currentScene the current scene
@@ -132,7 +133,7 @@ public class SnakeGameUtils {
      *
      * @return the JSON object
      */
-    public static JSONObject loadJSONObject(String JSONIdentifier) {
+    public static JSONObject loadJSONObject(String JSONIdentifier) throws RuntimeException {
         String jsonString;
         try {
             jsonString = new String(Files.readAllBytes(Paths.get(JSON_SOURCES.get(JSONIdentifier))));
@@ -190,26 +191,27 @@ public class SnakeGameUtils {
     }
 
     /**
-     * TODO: refactor this method so we can support custom levels and not only the default one.
-     * Gets the index of the preload file.
+     * Gets level identifier.
+     * Ensure that the level identifier is valid; belongs to the JSON_SOURCES map.
+     * Then, ensure that the file at the path exists.
+     * If not, throw an exception.
      *
      * @param params the params
-     * @return the preload index
+     * @return the level identifier
      * @throws Exception the exception
      */
-    public static int getPreloadIndex(String[] params) throws Exception {
-        if (params.length == 0) return 0; // default value
+    public static String getLevelIdentifier(String[] params) throws Exception {
+        if (params.length == 0) return null; // default value
 
-        // expected format: `gameScenario<number>` where 'gameScenario' is a constant identifier and <number> is an integer
-        String param = params[0];
-        String identifier = param.substring(0, param.length() - 1);
-        int idx = Integer.parseInt(param.substring(param.length() - 1));
-
-        // current supported identifiers and their corresponding indexes
-        if (identifier.equals("gameScenario") && (idx >= 1 && idx <= 5))
-            return idx;
-
-        throw new Exception("Invalid game scenario");
+        String levelIdentifier = params[0];
+        if (JSON_SOURCES.containsKey(levelIdentifier)) {
+            String tempLevelPath = JSON_SOURCES.get(levelIdentifier);
+            if (tempLevelPath != null && Files.exists(Paths.get(tempLevelPath))) {
+                return levelIdentifier;
+            }
+            throw new Exception(String.format("The level file at path %s does not exist.", tempLevelPath));
+        }
+        throw new Exception(String.format("The level identifier %s is not valid.", levelIdentifier));
     }
 
     /**

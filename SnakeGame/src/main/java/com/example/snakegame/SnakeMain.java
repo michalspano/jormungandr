@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SnakeMain extends Application {
-    public static int gamePreloadIndex;
+    public static String levelIdentifier;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -22,7 +22,7 @@ public class SnakeMain extends Application {
     }
     public static void main(String[] args) {
         try {
-            gamePreloadIndex = SnakeGameUtils.getPreloadIndex(args);
+            levelIdentifier = SnakeGameUtils.getLevelIdentifier(args);
         } catch (Exception exception) {
             throw new IllegalArgumentException("Invalid argument: " + exception.getMessage());
         }
