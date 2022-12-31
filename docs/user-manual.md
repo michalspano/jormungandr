@@ -149,11 +149,11 @@ Playing a particular level is fairly easy. The user can select the level by choo
 
 #### Understanding the Level's Run Configurations
 
-Each level is store as a `JSON` file under `resources/gameScenarios/` directory. One would argue, why a new __run configuration__ is needed for every level? Put simply, upon running the software, we provide a command-line argument with the desired level's name; hence, a new __run configuration__ is needed for every level (where each configuration contains a different command-line argument of the level). The command-line argument is used to _preload_ the game with the specified level's attributes from a `JSON` source. The command-line argument is passed to the `main` method of the `SnakeMain` class.
+Each level is store as a `JSON` file under `resources/levels/` directory. One would argue, why a new __run configuration__ is needed for every level? Put simply, upon running the software, we provide a command-line argument with the desired level's name; hence, a new __run configuration__ is needed for every level (where each configuration contains a different command-line argument of the level). The command-line argument is used to _preload_ the game with the specified level's attributes from a `JSON` source. The command-line argument is passed to the `main` method of the `SnakeMain` class.
 
 ### Custom Levels
 
-Besides the pre-defined levels, the user can also create their own levels. The purpose may be to test the game's functionalities or, simply, for fun. The user can create their own levels by creating a `JSON` file with a distinct name under `resources/gameScenarios/` directory. As part of the software, a __parser__ of `JSON` files is implemented to interpret such source files to the game's level attributes. The `JSON` file must contain the following attributes (with some dummy values):
+Besides the pre-defined levels, the user can also create their own levels. The purpose may be to test the game's functionalities or, simply, for fun. The user can create their own levels by creating a `JSON` file with a distinct name under `resources/levels/` directory. As part of the software, a __parser__ of `JSON` files is implemented to interpret such source files to the game's level attributes. The `JSON` file must contain the following attributes (with some dummy values); keep in mind that the comments are not part of the `JSON` file (they are only for the sake of the explanation):
 
 ```json
 {
@@ -197,17 +197,17 @@ Secondly, we need to _'tell'_ the game to recognize such a file as a __level__ f
 public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
         put("config", "path/to/resources/config.json");
         put("score", "path/to/resources/score.json");
-        put("gameScenario1", "path/to/resources/gameScenarios/gameScenario1.json");
+        put("snakeLevel1", "path/to/resources/levels/snakeLevel1.json");
         // ...
         // add the following line of code
-        put("myCustomLevel", "path/to/resources/gameScenarios/myCustomLevel.json"); 
+        put("myCustomLevel", "path/to/resources/levels/myCustomLevel.json"); 
         // ...
     }};
 ```
 
 Lastly, create a new __run configuration__ for the new level, where the the user passes the name of the level as the __command-line argument__ (as mentioned in the previous section). Passing command-line arguments in `IntelliJ` - [link](https://www.jetbrains.com/help/rider/Unreal_Engine__EzArgs.html). The passed command-line argument must correspond to the name of the `JSON` file (without the `.json` extension).
 
-__NOTE:__ the structure, such as the key names of the `JSON` file, must be the same as the one shown above. The values of the attributes can be changed to the desired ones. Albeit bear in mind that the values of the attributes must be valid. For example, the `x` and `y` coordinates of the snake's head, body must be within the game's board's boundaries (the same, virtually, applies to the enemies and obstacles).
+__NOTE:__ the structure, such as the key names of the `JSON` file, must be the same as the one shown above. The values of the attributes can be changed to the desired ones. Albeit bear in mind that the values of the attributes must be valid. For example, the `x` and `y` coordinates of the snake's head, body must be within the game's board's boundaries (the same, virtually, applies to the enemies and obstacles). The path `path/to/resources/` is supposed to represent the path to the `resources` directory of the project.
 
 ### Additional Features
 
