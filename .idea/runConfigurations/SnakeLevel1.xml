@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="SnakeLevel1" type="Application" factoryName="Application" folderName="demo">
+  <configuration default="false" name="SnakeLevel1" type="Application" factoryName="Application" folderName="levels">
     <option name="MAIN_CLASS_NAME" value="com.example.snakegame.SnakeMain" />
     <module name="SnakeGame.main" />
-    <option name="PROGRAM_PARAMETERS" value="gameScenario1" />
+    <option name="PROGRAM_PARAMETERS" value="snakeLevel1" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.example.snakegame.*" />
