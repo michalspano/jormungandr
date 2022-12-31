@@ -19,6 +19,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -61,7 +62,10 @@ public class SnakeGameUtils {
     public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
         put("config", "SnakeGame/src/main/resources/config.json");
         put("score", "SnakeGame/src/main/resources/score.json");
+        put("snakeLevel1", "SnakeGame/src/main/resources/levels/snakeLevel1.json");
+        // TODO: add the remaining game scenarios
     }};
+
     /**
      * Exit game alert.
      * @param currentScene the current scene
@@ -129,14 +133,32 @@ public class SnakeGameUtils {
      *
      * @return the JSON object
      */
-    public static JSONObject loadJSONConfig() {
+    public static JSONObject loadJSONObject(String JSONIdentifier) throws RuntimeException {
         String jsonString;
         try {
-            jsonString = new String(Files.readAllBytes(Paths.get(JSON_SOURCES.get("config"))));
+            jsonString = new String(Files.readAllBytes(Paths.get(JSON_SOURCES.get(JSONIdentifier))));
         } catch (IOException exception) {
             throw new RuntimeException(exception);
         }
         return new JSONObject(jsonString);
+    }
+
+    /**
+     * Parse json array of objects to List of objects.
+     *
+     * @param jsonArray the json array
+     * @return the list
+     */
+    public static List<GridPiece> parseJSONArrayList(JSONArray jsonArray) {
+        List<GridPiece> tempArray = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            tempArray.add(new GridPiece(
+                    jsonObject.getInt("x"),
+                    jsonObject.getInt("y"))
+            );
+        }
+        return tempArray;
     }
 
     /**
@@ -166,6 +188,30 @@ public class SnakeGameUtils {
             throw new RuntimeException(exception);
         }
         return jsonObject.getInt("sessionMaxScore");
+    }
+
+    /**
+     * Gets level identifier.
+     * Ensure that the level identifier is valid; belongs to the JSON_SOURCES map.
+     * Then, ensure that the file at the path exists.
+     * If not, throw an exception.
+     *
+     * @param params the params
+     * @return the level identifier
+     * @throws Exception the exception
+     */
+    public static String getLevelIdentifier(String[] params) throws Exception {
+        if (params.length == 0) return null; // default value
+
+        String levelIdentifier = params[0];
+        if (JSON_SOURCES.containsKey(levelIdentifier)) {
+            String tempLevelPath = JSON_SOURCES.get(levelIdentifier);
+            if (tempLevelPath != null && Files.exists(Paths.get(tempLevelPath))) {
+                return levelIdentifier;
+            }
+            throw new Exception(String.format("The level file at path %s does not exist.", tempLevelPath));
+        }
+        throw new Exception(String.format("The level identifier %s is not valid.", levelIdentifier));
     }
 
     /**

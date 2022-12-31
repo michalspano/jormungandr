@@ -13,11 +13,19 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class SnakeMain extends Application {
+    public static String levelIdentifier;
 
     @Override
     public void start(Stage stage) throws IOException {
         InstantiateScenes instantiateScenes = new InstantiateScenes();
         instantiateScenes.instantiateMenuScene(stage);
     }
-    public static void main(String[] args) { launch(); }
+    public static void main(String[] args) {
+        try {
+            levelIdentifier = SnakeGameUtils.getLevelIdentifier(args);
+        } catch (Exception exception) {
+            throw new IllegalArgumentException("Invalid argument: " + exception.getMessage());
+        }
+        launch();
+    }
 }
