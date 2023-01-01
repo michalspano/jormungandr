@@ -242,7 +242,7 @@ __Note:__ the structure, such as the key names of the `JSON` file, must be the s
 
 \pagebreak
 
-![](manual-images/background.jpg)
+![](manual-images/background.png)
 
 # Appendix
 
