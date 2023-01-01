@@ -37,7 +37,9 @@ output: pdf_document
 
 ## Story
 
-TODO: adduce a creative story for the user manual to make it more appealing
+According to Scandinavian mythology, the Jörmungandr, also known as the World Serpent, is an enormous snake that lives in the world ocean circling the Earth. Jörmungandr is large enough to bite its own tail from the other side of the Earth.
+
+Trying to find its way in the world ocean between the waves, and rocks, Jörmungandr catches pink puffer fish to consume, and grow length. Thor is obsessed with killing the giant snake, and therefore he has sent an army of starfish to destroy Jörnmungandr with their hammers.
 
 ## Introduction
 
