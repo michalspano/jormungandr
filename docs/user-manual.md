@@ -5,14 +5,14 @@ date: 2023-01-06
 papersize: a4
 fontsize: 12pt
 colorlinks: true
-geometry: margin=1.25cm
+geometry: margin=1.35cm
 output: pdf_document
 ---
 
-![](./manual-images/logo.png)
+![](manual-images/logo.png)
 
 ## Register
-- [Story](#story)
+- [Story of the Jörmungandr](#story-of-the-jrmungandr)
 - [Introduction](#introduction)
 - [Installation](#installation)
   - [Project Structure, Dependencies and Requirements](#project-structure-dependencies-and-requirements)
@@ -35,11 +35,13 @@ output: pdf_document
 
 \pagebreak
 
-## Story
+## Story of the Jörmungandr
 
-According to Scandinavian mythology, the Jörmungandr, also known as the World Serpent, is an enormous snake that lives in the world ocean circling the Earth. Jörmungandr is large enough to bite its own tail from the other side of the Earth.
+According to Scandinavian mythology, the **Jörmungandr**, also known as the World Serpent, is an enormous snake that lives in the world ocean circling the Earth. Jörmungandr is large enough to bite its own tail from the other side of the Earth.
 
-Trying to find its way in the world ocean between the waves, and rocks, Jörmungandr catches pink puffer fish to consume, and grow length. Thor is obsessed with killing the giant snake, and therefore he has sent an army of starfish to destroy Jörnmungandr with their hammers.
+Trying to find its way in the world ocean between the waves, and rocks, Jörmungandr catches pink puffer fish to consume, and grow length. Tron is obsessed with killing the giant snake, and therefore he has sent an army of starfish to destroy Jörnmungandr with their hammers.
+
+![](manual-images/story_user_manual.png)
 
 ## Introduction
 
@@ -78,9 +80,9 @@ The game consists of three main screens: the `Menu`, the `Game` and the `GameOve
 
 The user is welcomed with a background animation as well as a menu with two buttons: `Start` and `Quit`. The `Start` button starts the game, whereas the `Quit` button closes the game. The user can also close the screen with the `x` button in the top corner (a confirmation dialog will be shown). This applies to all the screens in the game.
 
-![The 'Menu Screen'](./manual-images/menu-screen.png)
+![The 'Menu Screen'](manual-images/menu-screen.png)
 
-![The 'Menu Screen' with the exit confirmation dialog](./manual-images/menu-screen-confirmation.png)
+![The 'Menu Screen' with the exit confirmation dialog](manual-images/menu-screen-confirmation.png)
 
 ### Game
 
@@ -98,14 +100,14 @@ Having clicked on the `Start` button in the previous screen, the user is redirec
 
 #### Table of the game elements
 
-| Element                            | Description                                                                                                                          |                                      Image                                      |
-|:-----------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------------------:|
-| Snake's head                       | The snake's head represents the snake's orientation controlled by the user.                                                          |           ![Snake's head](./manual-images/game-assets/snake_head.png)           |
-| Snake's body piece (default)       | A single piece of the snake's body.                                                                                                  |     ![Snake's body (default)](./manual-images/game-assets/snake_piece.png)      |
-| Snake's body piece (with food)     | A single piece of the snake's body with food - the snake's length increases by one unit for each food eaten.                         | ![Snake's body (with food)](./manual-images/game-assets/snake_piece_puffer.png) |
-| _'Puffer Fish'_ (consumable, food) | The _'Puffer Fish'_ is a consumable that the snake can eat. The snake's length increases by one unit for each _'Puffer Fish'_ eaten. |           ![Puffer Fish](./manual-images/game-assets/puffer_fish.png)           |
-| _'Tron'_ (enemy)                   | The _'Tron'_ is an enemy that the snake can collide with. The snake dies if it hits a _'Tron'_.                                      |                  ![Tron](./manual-images/game-assets/tron.png)                  |
-| Cluster of blocks (obstacle)       | The cluster of blocks is an obstacle that the snake can collide with. The snake dies if it hits a cluster of blocks.                 |           ![Cluster of blocks](./manual-images/game-assets/block.png)           |
+| Element                            | Description                                                                                                                          |                                     Image                                     |
+|:-----------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------:|
+| Snake's head                       | The snake's head represents the snake's orientation controlled by the user.                                                          |           ![Snake's head](manual-images/game-assets/snake_head.png)           |
+| Snake's body piece (default)       | A single piece of the snake's body.                                                                                                  |     ![Snake's body (default)](manual-images/game-assets/snake_piece.png)      |
+| Snake's body piece (with food)     | A single piece of the snake's body with food - the snake's length increases by one unit for each food eaten.                         | ![Snake's body (with food)](manual-images/game-assets/snake_piece_puffer.png) |
+| _'Puffer Fish'_ (consumable, food) | The _'Puffer Fish'_ is a consumable that the snake can eat. The snake's length increases by one unit for each _'Puffer Fish'_ eaten. |           ![Puffer Fish](manual-images/game-assets/puffer_fish.png)           |
+| _'Tron'_ (enemy)                   | The _'Tron'_ is an enemy that the snake can collide with. The snake dies if it hits a _'Tron'_.                                      |                  ![Tron](manual-images/game-assets/tron.png)                  |
+| Cluster of blocks (obstacle)       | The cluster of blocks is an obstacle that the snake can collide with. The snake dies if it hits a cluster of blocks.                 |           ![Cluster of blocks](manual-images/game-assets/block.png)           |
 
 #### Game Mechanics
 
@@ -207,7 +209,7 @@ public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
     }};
 ```
 
-Lastly, create a new __run configuration__ for the new level, where the the user passes the name of the level as the __command-line argument__ (as mentioned in the previous section). Passing command-line arguments in `IntelliJ` - [link](https://www.jetbrains.com/help/rider/Unreal_Engine__EzArgs.html). The passed command-line argument must correspond to the name of the `JSON` file (without the `.json` extension).
+Lastly, create a new __run configuration__ for the new level, where the user passes the name of the level as the __command-line argument__ (as mentioned in the previous section). Passing command-line arguments in `IntelliJ` - [link](https://www.jetbrains.com/help/rider/Unreal_Engine__EzArgs.html). The passed command-line argument must correspond to the name of the `JSON` file (without the `.json` extension).
 
 __NOTE:__ the structure, such as the key names of the `JSON` file, must be the same as the one shown above. The values of the attributes can be changed to the desired ones. Albeit bear in mind that the values of the attributes must be valid. For example, the `x` and `y` coordinates of the snake's head, body must be within the game's board's boundaries (the same, virtually, applies to the enemies and obstacles). The path `path/to/resources/` is supposed to represent the path to the `resources` directory of the project.
 
