@@ -20,7 +20,7 @@ output: pdf_document
 - [Game Interface](#game-interface)
   - [Menu](#menu)
   - [Game](#game)
-    - [Table of the game elements](#table-of-the-game-elements)
+    - [Table of The Game Elements](#table-of-the-game-elements)
     - [Game Mechanics](#game-mechanics)
   - [Game Over](#game-over)
 - [Additional](#additional)
@@ -41,13 +41,11 @@ According to Scandinavian mythology, the **Jörmungandr**, also known as the Wor
 
 Trying to find its way in the world ocean between the waves, and rocks, Jörmungandr catches pink puffer fish to consume, and grow length. Tron is obsessed with killing the giant snake, and therefore he has sent an army of starfish to destroy Jörnmungandr with their hammers.
 
-![](manual-images/story_user_manual.png)
+![](manual-images/user_manual_story.png)
 
 ## Introduction
 
-This is a **user manual** (UM) for the **Snake Game** - **Jörmungandr** - a game based on the traditional snake game with a few twists created by the **Group 10** of `DIT094` of the **University of Gothenburg**. It is intended to be used by the end user of the game, i.e. the player. Its major aim is to offer the player with the information needed to play the game and understand the game mechanics, as well as to supply the user with the information needed to install and use the game (within a local environment). Finally, as part of the game development process, the UM shall give the user with the essential knowledge regarding the technical components of the game, such as the game architecture and the game design.
-
-![Group10 Team Picture](www.todo.com)
+This is a **user manual** (UM) for the **Snake Game** - **Jörmungandr** - a game based on the traditional snake game with a few twists created by the **Group 10** of `DIT094` of the **University of Gothenburg**. It is intended to be used by the end user of the game, i.e. the player. Its major aim is to offer the player with the information needed to play the game and understand the game mechanics, as well as to supply the user with the information needed to install and use the game (within a local environment). Finally, as part of the game development process, the UM shall give the user with the essential knowledge regarding the technical components of the game, such as the game architecture and the game design for potential future developers.
 
 ## Installation
 
@@ -64,9 +62,9 @@ This command will create a local copy of the game on the user's machine with all
 
 The project's developers tried to make the installation as easy as possible, therefore, the source code contains the configuration of the **Build System** used - `Gradle` as well as other required configuration files. The configuration shall contain all the dependencies needed to run and/or build the game on a local machine.
 
-However, the user needs to have a proper installation of `JDK` (Java Development Kit) on their machine. The game was developed using `JDK 17` and it is recommended to use the same version. The user can download the `JDK` from [here](https://www.oracle.com/java/technologies/downloads/#java17).
+However, the user needs to have a proper installation of `JDK` (Java Development Kit) on their machine. The game was developed using `JDK 17` and it is recommended to use the same version. The user can download the `JDK`[$^{[1]}$](#references).
 
-Moreover, it is advised to use an IDE for building and running the game. The developers used `IntelliJ IDEA` and it is recommended to use the same IDE. The user can download `IntelliJ IDEA` from [here](https://www.jetbrains.com/idea/download/) (later throughout the document, the term `IDE` will refer to `IntelliJ IDEA`; version: `2022.2.3`).
+Moreover, it is advised to use an IDE for building and running the game. The developers used `IntelliJ IDEA` and it is recommended to use the same IDE. The user can download `IntelliJ IDEA`[$^{[2]}$](#references) (later throughout the document, the term `IDE` will refer to `IntelliJ IDEA`; version: `2022.2.3`).
 
 ### Running/Building the Game
 
@@ -98,7 +96,7 @@ Having clicked on the `Start` button in the previous screen, the user is redirec
      - The _'Trons'_ (enemies)
      - The __obstacles__ (walls, blocks)
 
-#### Table of the game elements
+#### Table of The Game Elements
 
 | Element                            | Description                                                                                                                          |                                     Image                                     |
 |:-----------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------:|
@@ -126,7 +124,7 @@ Upon eating the __consumable__, the score of the player is incremented by a sing
 
 An example of a __demo__ of the game is shown below:
 
-![Snake Game Demo](www.TODO.com)
+![Snake Game Demo](manual-images/snake-game.png)
 
 ### Game Over
 
@@ -138,7 +136,7 @@ Lastly, the user is redirected to the `GameOver` screen upon _'dying'_ (for one 
   - The __restart__ button (restarts the game)
   - The __home__ button (redirects the user to the `Menu` screen)
 
-![Game Over Screen](www.TODO.com)
+![Game Over Screen](manual-images/game-over.png)
 
 ## Additional
 
@@ -148,12 +146,17 @@ The following section contains some **additional** information and features of t
 
 The game comes with five pre-defined levels that the user can choose from. These have enabled us to effectively test and _demo_ the game (as part of the development process). 
 
-Playing a particular level is fairly easy. The user can select the level by choosing the corresponding __run configuration__ within the `IDE` which shall _preload_ the game with the specified level's attributes whilst compiling and running the software. The following table contains the __run configurations__ for each level:
-- TODO: fill in the table
+Playing a particular level is fairly easy. The user can select the level by choosing the corresponding __run configuration__ within the `IDE` which shall _preload_ the game with the specified level's attributes whilst compiling and running the software. The following list contains the corresponding __run configurations__ for each level that comes with the game:
+
+- `levels/SnakeLevel1`,
+- `levels/SnakeLevel2`,
+- `levels/SnakeLevel3`,
+- `levels/SnakeLevel4`,
+- `levels/SnakeLevel5`.
 
 #### Understanding the Level's Run Configurations
 
-Each level is store as a `JSON` file under `resources/levels/` directory. One would argue, why a new __run configuration__ is needed for every level? Put simply, upon running the software, we provide a command-line argument with the desired level's name; hence, a new __run configuration__ is needed for every level (where each configuration contains a different command-line argument of the level). The command-line argument is used to _preload_ the game with the specified level's attributes from a `JSON` source. The command-line argument is passed to the `main` method of the `SnakeMain` class.
+Each level is store as a `JSON`[$^{[3]}$](#references) file under `resources/levels/` directory. One would argue, why a new __run configuration__ is needed for every level? Put simply, upon running the software, we provide a command-line argument with the desired level's name; hence, a new __run configuration__ is needed for every level (where each configuration contains a different command-line argument of the level). The command-line argument is used to _preload_ the game with the specified level's attributes from a `JSON` source. The command-line argument is passed to the `main` method of the `SnakeMain` class.
 
 ### Custom Levels
 
@@ -209,7 +212,7 @@ public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
     }};
 ```
 
-Lastly, create a new __run configuration__ for the new level, where the user passes the name of the level as the __command-line argument__ (as mentioned in the previous section). Passing command-line arguments in `IntelliJ` - [link](https://www.jetbrains.com/help/rider/Unreal_Engine__EzArgs.html). The passed command-line argument must correspond to the name of the `JSON` file (without the `.json` extension).
+Lastly, create a new __run configuration__ for the new level, where the user passes the name of the level as the __command-line argument__ (as mentioned in the previous section). Passing command-line arguments in `IntelliJ`[$^{[4]}$](#references). The passed command-line argument must correspond to the name of the `JSON` file (without the `.json` extension).
 
 __NOTE:__ the structure, such as the key names of the `JSON` file, must be the same as the one shown above. The values of the attributes can be changed to the desired ones. Albeit bear in mind that the values of the attributes must be valid. For example, the `x` and `y` coordinates of the snake's head, body must be within the game's board's boundaries (the same, virtually, applies to the enemies and obstacles). The path `path/to/resources/` is supposed to represent the path to the `resources` directory of the project.
 
@@ -217,7 +220,7 @@ __NOTE:__ the structure, such as the key names of the `JSON` file, must be the s
 
 A further set of features are implemented in the game. These features are not part of the game's core functionalities, but rather, they are additional features that enhance the user's experience. These features are:
 
-#### Adjusting the Game's Preferences
+### Adjusting the Game's Preferences
 
 Similarly to creating __custom levels__ (as mentioned in the previous section), the user can similarly adjust the game's preferences, such as the game's speed or the settings of the interface. The user can do so by altering the `config.json` file found under `resources` folder. The file must contain the following attributes (with the default values):
 
@@ -245,8 +248,13 @@ __Note:__ the structure, such as the key names of the `JSON` file, must be the s
 
 ## References
 
-- [1] [Some reference](some-link)
-- [2] [Some reference2](some-link)
+\- [1] [`JDK 17` Installation guide](https://www.oracle.com/java/technologies/downloads/#java17)
+
+\- [2] [Latest `IntelliJ IDEA` installation guide](https://www.jetbrains.com/idea/download/)
+
+\- [3] [JavaScript Object Notation (JSON) - json.org](https://www.json.org/json-en.html)
+
+\- [4] [Passing command-line arguments in `IntelliJ IDEA`](https://www.jetbrains.com/help/rider/Unreal_Engine__EzArgs.html)
 
 ### Closing Remarks
 
