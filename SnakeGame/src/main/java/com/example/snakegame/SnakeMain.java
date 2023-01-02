@@ -13,9 +13,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
  /**
- *SnakeMain is a class that extends the Application class and is responsible for starting the game.
- *It contains a static integer variable, gamePreloadIndex, and an overridden method, start().
- */
+  * SnakeMain is a class that extends the Application class and is responsible for starting the game.
+  * It contains a static integer variable, gamePreloadIndex, and an overridden method, start().
+  */
 public class SnakeMain extends Application {
     public static int gamePreloadIndex;
 
@@ -24,10 +24,11 @@ public class SnakeMain extends Application {
         InstantiateScenes instantiateScenes = new InstantiateScenes();
         instantiateScenes.instantiateMenuScene(stage);
     }
- /**
- *Main method for running the Snake game.
- *@throws IllegalArgumentException if an invalid argument is passed
- */
+
+    /**
+     * Main method for running the Snake game.
+     * @throws IllegalArgumentException if an invalid argument is detected.
+     */
     public static void main(String[] args) {
         try {
             gamePreloadIndex = SnakeGameUtils.getPreloadIndex(args);

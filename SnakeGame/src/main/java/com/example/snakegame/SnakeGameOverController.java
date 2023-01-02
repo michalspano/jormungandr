@@ -16,9 +16,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
  /**
- *The SnakeGameOverController class is the controller class for the game over scene in the Snake game.
- *It contains various GUI elements and their respective event handlers.
- */
+  * The SnakeGameOverController class is the controller class for the game over scene in the Snake game.
+  * It contains various GUI elements and their respective event handlers.
+  * */
 public class SnakeGameOverController {
     @FXML
     private Button homeButton;
@@ -37,10 +37,10 @@ public class SnakeGameOverController {
 
     InstantiateScenes instantiateScenes = new InstantiateScenes();
 
-      /**
-       *This method returns the current Stage object for the game.
-       * @return the current Stage object.
-       */
+    /**
+     * This method returns the current Stage object for the game.
+     * @return the current Stage object.
+     */
     private Stage getCurrentStage() {
         return (Stage) gameOverScene.getScene().getWindow();
     }
