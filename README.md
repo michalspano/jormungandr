@@ -14,7 +14,7 @@ The `stats` branch contains `R-lang` source with __statistical__ modules used fo
 <!-- LINKS -->
 [survey1-results]: https://docs.google.com/spreadsheets/d/15I0KnlatvpiJ8o5Dh-DS_xJyulmXFIdCkNrLt8DK_IY/edit?usp=sharing
 [survey2-results]: https://docs.google.com/spreadsheets/d/1FsK14F4H2ZkqL69rZfpRrcCHpH8UK4UvR2ph2kJ8k58/edit?usp=sharing
-[survey3-results]: todo.com
+[survey3-results]: https://docs.google.com/spreadsheets/d/1gE2rQLclGyox2gH7__hz1gBgbmZgLYti4RvBzBDWuXI/edit?usp=sharing
 [survey4-results]: todo.com
 
 ### Understanding the Data and the Structure
