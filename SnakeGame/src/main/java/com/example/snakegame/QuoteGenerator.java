@@ -18,8 +18,15 @@ import java.util.ArrayList;
  * The type Quote generator.
  */
 public class QuoteGenerator {
+
+    /**
+     * The path to the project resources directory.
+     */
     public static final String PROJECT_RESOURCE = "SnakeGame/src/main/resources/";
 
+    /**
+     * The source of the quotes.
+     */
     private final List<String> QUOTES;
     private final String QUOTE_SOURCE;
 

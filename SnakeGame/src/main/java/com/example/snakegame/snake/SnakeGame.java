@@ -117,6 +117,13 @@ public class SnakeGame extends Application {
     }
 
     /* initial setup of the game parameters */
+    /**
+
+     This method sets the initial game states for the Snake game.
+     It first adds the initial snake pieces to the SNAKE list.
+     It then generates a new consumable and enemy for the game.
+     Finally, it generates the block terrain for the game.
+     */
     private void setInitialGameStates() {
         for (int i = this.INITIAL_SNAKE_SIZE; i > 0; i--) {
             SNAKE.add(new GridPiece(0, i));
