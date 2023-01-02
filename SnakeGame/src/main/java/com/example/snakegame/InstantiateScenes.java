@@ -61,13 +61,17 @@ public class InstantiateScenes {
 
     /**
      * Instantiate game scene.
+     * The game scene is instantiated with loading a {@code JSON} file - a {@code config} file (initially).
+     * Later, if desired by the user, the game can be preloaded with a predefined {@code JSON} file - signifying the abstract state of the game.
+     * These resemble levels of the game and are stored in the {@code levels} folder. Moreover, the user can create their custom levels.
+     * This is largely described in the user manual of the software.
      *
      * @param stage the stage
      */
-    public void instantiateGameScene(Stage stage) {
+    public void instantiateGameScene(Stage stage){
         System.out.println("Starting the game... ");
 
-        int gamePreloadIndex = SnakeMain.gamePreloadIndex;
+        String levelIdentifier = SnakeMain.levelIdentifier;
 
         JSONObject config = SnakeGameUtils.loadJSONObject("config");
         JSONObject gameSettings = config.getJSONObject("gameSettings");
@@ -82,11 +86,11 @@ public class InstantiateScenes {
 
         SnakeGame snakeGame;
 
-        if (gamePreloadIndex == 0) { // a type of game without any preloading
+        if (levelIdentifier == null) { // a type of game without any preloading
             snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed, upperPadding);
         } else {
             // marshal the game state from the JSON file
-            JSONObject gamePreloadObject = SnakeGameUtils.loadJSONObject("gameScenario" + gamePreloadIndex);
+            JSONObject gamePreloadObject = SnakeGameUtils.loadJSONObject(levelIdentifier);
             JSONObject gamePreload = gamePreloadObject.getJSONObject("gameState");
 
             // parse the game state from the JSON file and assign it to the constructor of the preloaded game

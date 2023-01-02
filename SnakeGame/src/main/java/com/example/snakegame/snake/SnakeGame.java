@@ -31,7 +31,7 @@ public class SnakeGame extends Application {
     // global constants
     public static final int ENEMY_COUNT = 5;
     public static final int BLOCK_COUNT = 5;
-    public static final int BLOCK_SIZE = 3;
+    public static final int BLOCK_SIZE  = 3;
 
     // parsed from the config file
     private final int INITIAL_SNAKE_SIZE;
@@ -91,7 +91,7 @@ public class SnakeGame extends Application {
      * @param direction        the direction
      * @param snake            the snake
      * @param enemyList        the enemy list
-     * @param blockList       the blocks list
+     * @param blockList        the blocks list
      */
     public SnakeGame(int initialSnakeSize, int cellSize, int rows, int columns, int speed, int upperPadding,
                      int sessionScore, SnakeDirection direction, int foodX, int foodY, List<GridPiece> snake,
@@ -215,9 +215,7 @@ public class SnakeGame extends Application {
         scene.setFill(Color.BLACK);
 
         // set the initial game states (for not preloaded games)
-        if (!isPreloaded) {
-            setInitialGameStates();
-        }
+        if (!isPreloaded) setInitialGameStates();
 
         // control the snake with the keystrokes
         scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
@@ -226,7 +224,6 @@ public class SnakeGame extends Application {
                 case S, DOWN    -> direction = SnakeDirection.DOWN;
                 case A, LEFT    -> direction = SnakeDirection.LEFT;
                 case D, RIGHT   -> direction = SnakeDirection.RIGHT;
-
                 default -> System.out.println("Invalid key");
             }
         });
@@ -398,5 +395,27 @@ public class SnakeGame extends Application {
 
     public static void instantiate(String[] args) {
         launch(args);
+    }
+
+    @Override
+    public String toString() {
+        return "SnakeGame{" +
+                "INITIAL_SNAKE_SIZE=" + INITIAL_SNAKE_SIZE +
+                ", CELL_SIZE=" + CELL_SIZE +
+                ", ROW_COUNT=" + ROW_COUNT +
+                ", COLUMN_COUNT=" + COLUMN_COUNT +
+                ", speed=" + speed +
+                ", isPreloaded=" + isPreloaded +
+                ", foodX=" + foodX +
+                ", foodY=" + foodY +
+                ", gameOver=" + gameOver +
+                ", currentScore=" + currentScore +
+                ", MAX_SCORE=" + MAX_SCORE +
+                ", UPPER_PADDING=" + UPPER_PADDING +
+                ", direction=" + direction +
+                ", SNAKE=" + SNAKE +
+                ", ENEMY_LIST=" + ENEMY_LIST +
+                ", BLOCKS_LIST=" + BLOCKS_LIST +
+                '}';
     }
 }

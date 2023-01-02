@@ -17,7 +17,7 @@ import java.io.IOException;
   * It contains a static integer variable, gamePreloadIndex, and an overridden method, start().
   */
 public class SnakeMain extends Application {
-    public static int gamePreloadIndex;
+    public static String levelIdentifier;
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -31,7 +31,7 @@ public class SnakeMain extends Application {
      */
     public static void main(String[] args) {
         try {
-            gamePreloadIndex = SnakeGameUtils.getPreloadIndex(args);
+            levelIdentifier = SnakeGameUtils.getLevelIdentifier(args);
         } catch (Exception exception) {
             throw new IllegalArgumentException("Invalid argument: " + exception.getMessage());
         }
