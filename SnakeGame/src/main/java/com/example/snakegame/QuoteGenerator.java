@@ -24,16 +24,13 @@ public class QuoteGenerator {
      */
     public static final String PROJECT_RESOURCE = "SnakeGame/src/main/resources/";
 
-    /**
-     * The source of the quotes.
-     */
     private final List<String> QUOTES;
     private final String QUOTE_SOURCE;
 
     /**
      * Instantiates a new Quote generator.
      *
-     * @param quoteFile the quote file
+     * @param quoteFile the file with the quotes
      */
     public QuoteGenerator(String quoteFile) throws IOException {
         this.QUOTE_SOURCE = PROJECT_RESOURCE + quoteFile;
@@ -47,11 +44,11 @@ public class QuoteGenerator {
     }
 
     /**
-     * Load quotes list.
+     * Load quotes to a list.
      * TODO: for now, the quotes are static. In the future, we will use an {@code API} to get random quotes.
      *
      * @return the list
-     * @throws IOException the io exception
+     * @throws IOException the IO exception if the file is not found
      */
     public List<String> loadQuotes() throws IOException {
         List<String> tempQuotes = new ArrayList<>();

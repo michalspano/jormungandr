@@ -15,10 +15,12 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
- /**
-  * The SnakeGameOverController class is the controller class for the game over scene in the Snake game.
-  * It contains various GUI elements and their respective event handlers.
-  * */
+
+/**
+ * The {@code SnakeGameOverController} class is the controller class for the "Game Over" scene in the Snake game.
+ * It contains various GUI elements and their respective event handlers.
+ **/
+
 public class SnakeGameOverController {
     @FXML
     private Button homeButton;
@@ -71,7 +73,7 @@ public class SnakeGameOverController {
     }
 
     /**
-     * Start game.
+     * Start game (from the restart button).
      */
     @FXML
     protected void startGame() {
@@ -80,7 +82,7 @@ public class SnakeGameOverController {
     }
 
     /**
-     * Go to menu.
+     * Go to menu (from the menu button).
      *
      * @throws IOException the io exception
      */

@@ -13,11 +13,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
  /**
-  * SnakeMain is a class that extends the Application class and is responsible for starting the game.
-  * It contains a static integer variable, gamePreloadIndex, and an overridden method, start().
+  * SnakeMain is a class that extends the {@code Application} {@code abstract} class and is responsible for starting the game.
+  * It contains a static String variable (levelIdentifier) and an overridden method - {@code start()}.
   */
 public class SnakeMain extends Application {
-    public static String levelIdentifier;
+    public static String levelIdentifier; // stored for the optional game preloading
 
     @Override
     public void start(Stage stage) throws IOException {

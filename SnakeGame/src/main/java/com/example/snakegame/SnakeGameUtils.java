@@ -29,7 +29,7 @@ import java.util.*;
 
 /**
  * This is a static class that contains utility methods for the Snake Game.
- * The point is re-usage of code.
+ * The point is re-usage of code, and avoiding code duplication.
  */
 public class SnakeGameUtils {
     public static final Random random = new Random();
@@ -48,7 +48,7 @@ public class SnakeGameUtils {
     }};
 
     /**
-     * The constant CSS styles part of an anonymous class.
+     * The constant {@code CSS} styles part of an anonymous class.
      */
     public static final Map<String, String> CSS_STYLES = new HashMap<>() {{
         put("menu", Objects.requireNonNull(getClass().getResource("css/menu.css")).toExternalForm());
@@ -68,6 +68,7 @@ public class SnakeGameUtils {
 
     /**
      * Exit game alert.
+     * An alert that asks the user if they want to exit the game.
      * @param currentScene the current scene
      */
     public static void exitGameAlert(Parent currentScene) {
@@ -115,7 +116,7 @@ public class SnakeGameUtils {
     }
 
     /**
-     * Draw image.
+     * Draw image at x and y given the width and height.
      *
      * @param gc        the gc
      * @param imageName the image name
@@ -144,7 +145,7 @@ public class SnakeGameUtils {
     }
 
     /**
-     * Parse json array of objects to List of objects.
+     * Parse {@code JSON} array of objects to List of objects.
      *
      * @param jsonArray the json array
      * @return the list
@@ -154,7 +155,7 @@ public class SnakeGameUtils {
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             tempArray.add(new GridPiece(
-                    jsonObject.getInt("x"),
+                    jsonObject.getInt("x"), // implicit of the GridPiece object
                     jsonObject.getInt("y"))
             );
         }
@@ -214,6 +215,8 @@ public class SnakeGameUtils {
         throw new Exception(String.format("The level identifier %s is not valid.", levelIdentifier));
     }
 
+    /* Additional methods */
+
     /**
      * Snake logger.
      *
@@ -230,22 +233,6 @@ public class SnakeGameUtils {
     public static void TODO() {
         System.out.println("\u001B[31m" + "TODO: method not implemented" + "\u001B[0m");
         System.exit(1);
-    }
-
-    /**
-     * Generate random RGB color.
-     *
-     * @return the color
-     */
-    public static Color generateRandomColor() {
-        final int COLOR_OFFSET = 50;
-
-        // range of each color is: COLOR_OFFSET to (255 - COLOR_OFFSET)
-        int red = COLOR_OFFSET + (int)(Math.random() * (255 - COLOR_OFFSET));
-        int green = COLOR_OFFSET + (int)(Math.random() * (255 - COLOR_OFFSET));
-        int blue = COLOR_OFFSET + (int)(Math.random() * (255 - COLOR_OFFSET));
-
-        return Color.rgb(red, green, blue);
     }
 
     /**

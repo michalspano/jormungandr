@@ -25,7 +25,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 /**
- * The type Snake game.
+ * The Snake Game - Jörmungandr
  */
 public class SnakeGame extends Application {
     // global constants
@@ -112,17 +112,13 @@ public class SnakeGame extends Application {
         this.SNAKE              = snake;
         this.ENEMY_LIST         = enemyList;
         this.BLOCKS_LIST        = blockList;
-
-        // SnakeGameUtils.TODO();
     }
 
-    /* initial setup of the game parameters */
-    /**
-
-     This method sets the initial game states for the Snake game.
-     It first adds the initial snake pieces to the SNAKE list.
-     It then generates a new consumable and enemy for the game.
-     Finally, it generates the block terrain for the game.
+    /** Used for non-preloaded games
+     * This method sets the initial game states for the Snake game.
+     * It first adds the initial snake pieces to the SNAKE list.
+     * It then generates a new consumable and enemy for the game.
+     * Finally, it generates the block terrain for the game with the enemies.
      */
     private void setInitialGameStates() {
         for (int i = this.INITIAL_SNAKE_SIZE; i > 0; i--) {
@@ -154,6 +150,7 @@ public class SnakeGame extends Application {
         foodY = randomPosition[1];
     }
 
+    // Method to generate a new list of enemies; to be reset every time the snake eats a consumable
     private void generateNewEnemy() {
         int enemySize = SnakeGameUtils.random.nextInt(ENEMY_COUNT) + 1;
         ENEMY_LIST.clear();
@@ -168,12 +165,14 @@ public class SnakeGame extends Application {
         }
     }
 
+    // Method to generate a terrain of blocks; cluster of blocks contains a single blocks organized
+    // in a 'cluster' like structure. The cluster is then placed randomly on the grid.
     private void generateBlockTerrain() {
         int clusterCount = SnakeGameUtils.random.nextInt(BLOCK_COUNT) + 1;
         int blockCount;
         int x, y;
 
-        final int[] POSITIONS = new int[] { -1, 0, 1 };
+        final int[] POSITIONS = new int[] { -1, 0, 1 }; // possible positions of the blocks in the cluster
 
         for (int i = 0; i < clusterCount; i++) {
             blockCount = SnakeGameUtils.random.nextInt(BLOCK_SIZE) + 1;
@@ -182,19 +181,20 @@ public class SnakeGame extends Application {
             x = position[0];
             y = position[1];
 
-            BLOCKS_LIST.add(new GridPiece(x, y));
+            BLOCKS_LIST.add(new GridPiece(x, y)); // the initial block in the cluster
 
             for (int j = 0; j < blockCount; j++) {
 
                 // generate offsets for both x, y
                 int[] offset = new int[2];
 
+                // ensure that the offset is not 0, 0
                 while (offset[0] == 0 && offset[1] == 0) {
                     offset[0] = POSITIONS[SnakeGameUtils.random.nextInt(POSITIONS.length)];
                     offset[1] = POSITIONS[SnakeGameUtils.random.nextInt(POSITIONS.length)];
                 }
 
-                // assign new x, y
+                // assign new x, y from the block of the cluster
                 x += offset[0];
                 y += offset[1];
 
@@ -217,7 +217,7 @@ public class SnakeGame extends Application {
         // set the initial game states (for not preloaded games)
         if (!isPreloaded) setInitialGameStates();
 
-        // control the snake with the keystrokes
+        // control the snake with the keystrokes, added onto the scene
         scene.addEventFilter(KeyEvent.KEY_PRESSED, key -> {
             switch (key.getCode()) {
                 case W, UP      -> direction = SnakeDirection.UP;
@@ -228,23 +228,24 @@ public class SnakeGame extends Application {
             }
         });
 
+        // this is the main game loop, the game tick rate is controlled by the speed variable
         double timeToWait = Math.pow(10, 9) / speed;
+
         new AnimationTimer() {
             long lastTick;
 
             public void handle(long currentTick) {
                 if (gameOver) {
-                    this.stop();
+                    this.stop(); // the loop stops when the game is over
 
                     // delete the canvas from the root
                     root.getChildren().remove(canvas);
                     scene.setFill(Color.BLACK);
 
                     // check if the score is a new high score, if so, update the JSON file
-                    if (currentScore > MAX_SCORE) {
-                        SnakeGameUtils.updateGameSession(currentScore);
-                    }
+                    if (currentScore > MAX_SCORE) SnakeGameUtils.updateGameSession(currentScore);
 
+                    // navigate to the game over screen
                     InstantiateScenes instantiateScenes = new InstantiateScenes();
 
                     try {
@@ -255,11 +256,14 @@ public class SnakeGame extends Application {
 
                     return;
                 }
+
+                // the game's loop
                 if (currentTick - lastTick > timeToWait) {
                     lastTick = currentTick;
                     tick(graphicsContext);
                 }
             }
+
         }.start();
 
         primaryStage.setTitle("The Snake Game");
@@ -282,6 +286,8 @@ public class SnakeGame extends Application {
         }
 
         final GridPiece HEAD = SNAKE.get(0); // per each tick, there is only one head - constant
+
+        // handle the snake's movement
         switch (direction) {
             case UP     -> HEAD.setY(HEAD.getY() - 1);
             case DOWN   -> HEAD.setY(HEAD.getY() + 1);
@@ -298,19 +304,17 @@ public class SnakeGame extends Application {
 
         // detection if the snake eats the consumable
         if (foodX == HEAD.getX() && foodY == HEAD.getY()) {
-
+            // make the snake grow
             GridPiece tail = SNAKE.get(SNAKE.size() - 1);
             SNAKE.add(new GridPiece(tail.getX(), tail.getY()));
 
-            // increase the speed after each food is eaten [optional]
-            // speed++;
-
+            // update the score, generate a new consumable, generate a list of new enemies
             currentScore++;
             generateNewConsumable();
             generateNewEnemy();
         }
 
-        // iterate over snake.size(), skip [0] in an anonymous function
+        // detect if the snake eats itself
         SNAKE.stream().skip(1).forEach(piece -> {
             if (HEAD.getX() == piece.getX() && HEAD.getY() == piece.getY()) {
                 System.out.println("You ate yourself!");
@@ -318,41 +322,33 @@ public class SnakeGame extends Application {
             }
         });
 
-        // collision with enemy
+        // collision with enemies using a pre-defined collision method from the utils class
         if (SnakeGameUtils.detectCollisionOverIterable(HEAD.getX(), HEAD.getY(), ENEMY_LIST)) {
             System.out.println("You ate an enemy!");
             gameOver = true;
             return;
         }
 
-        // collision with blocks
+        // collision with blocks using a pre-defined collision method from the utils class
         if (SnakeGameUtils.detectCollisionOverIterable(HEAD.getX(), HEAD.getY(), BLOCKS_LIST)) {
             System.out.println("You hit a block!");
             gameOver = true;
             return;
         }
 
+        // draw the background
         SnakeGameUtils.drawImage(gc, "gameBackground", 0, 0,
                 this.ROW_COUNT * this.CELL_SIZE, this.COLUMN_COUNT * this.CELL_SIZE);
 
-        // default system font
+        // obtain the default system font
         String fontName = Font.getFamilies().get(0);
 
-        // TODO: make the score display more appealing
-
-        // display the current score
         gc.setFill(Color.WHITE);
         gc.setFont(new Font(fontName, 30));
-        gc.fillText("Score: " + currentScore, 20,
-                                        this.CELL_SIZE);
+        gc.fillText("Score: " + currentScore, 20, this.CELL_SIZE);          // current score
+        gc.fillText("High Score: " + MAX_SCORE, 20, this.CELL_SIZE * 2);  // high score
 
-        // display the high score
-        gc.setFill(Color.WHITE);
-        gc.setFont(new Font(fontName, 30));
-        gc.fillText("High Score: " + MAX_SCORE, 20,
-                                        this.CELL_SIZE * 2);
-
-        // draw the snake
+        // draw the snake, i.e., the snake's body
         String currentImageStr;
         for (int i = 0; i < SNAKE.size(); i++) {
             if (i == 0) {
@@ -363,40 +359,40 @@ public class SnakeGame extends Application {
                 currentImageStr = "enemyBody";
             }
 
-            // draw the parts of the snake
+            // draw the snake's part of the body
             SnakeGameUtils.drawImage(gc, currentImageStr,
                     SNAKE.get(i).getX() * this.CELL_SIZE,
                     SNAKE.get(i).getY() * this.CELL_SIZE,
                     this.CELL_SIZE, this.CELL_SIZE);
         }
 
-        // draw the consumable
+        // draw the consumable at the specified coordinates
         SnakeGameUtils.drawImage(gc, "food",
                 foodX * this.CELL_SIZE,
                 foodY * this.CELL_SIZE,
                 this.CELL_SIZE, this.CELL_SIZE);
 
-        // draw the enemies
-        for (GridPiece ep : ENEMY_LIST)
+        // draw the enemies at the specified coordinates
+        for (GridPiece enemy : ENEMY_LIST) {
             SnakeGameUtils.drawImage(gc, "enemy",
-                    ep.getX() * this.CELL_SIZE,
-                    ep.getY() * this.CELL_SIZE,
+                    enemy.getX() * this.CELL_SIZE,
+                    enemy.getY() * this.CELL_SIZE,
                     this.CELL_SIZE, this.CELL_SIZE);
+        }
 
-        // draw the blocks
-        for (GridPiece bp : BLOCKS_LIST)
+        // draw the blocks at the specified coordinates
+        for (GridPiece block : BLOCKS_LIST) {
             SnakeGameUtils.drawImage(gc, "block",
-                    bp.getX() * this.CELL_SIZE,
-                    bp.getY() * this.CELL_SIZE,
+                    block.getX() * this.CELL_SIZE,
+                    block.getY() * this.CELL_SIZE,
                     this.CELL_SIZE, this.CELL_SIZE);
+        }
     }
 
-    // TODO: add getters and setters
-
-    public static void instantiate(String[] args) {
-        launch(args);
-    }
-
+    /**
+     * The {@code toString()} method of the {@code SnakeGame} class.
+     * It reports the attributes, parameters of the class.
+     */
     @Override
     public String toString() {
         return "SnakeGame{" +
