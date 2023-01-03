@@ -1,3 +1,14 @@
+---
+title: Mini Project Group 10 - stats branch
+author: Michal Spano et al.
+date: 2023-01-06
+papersize: a4
+fontsize: 12pt
+colorlinks: true
+geometry: margin=1.35cm
+output: pdf_document
+---
+
 ## Mini Project Group 10 ~ _'Jörmungandr'_ ~ `stats`
  
 The `stats` branch contains `R-lang` source with __statistical__ modules used for the __project report__. The plots, figures generated are included in the __Project Management Report__. This way, we have been able to automatize the generation of the plots and figures, and thus, we have been able to generate the report in a reproducible way. Furthermore, we have used the same script throughout the phases, making it easier to maintain and update.
