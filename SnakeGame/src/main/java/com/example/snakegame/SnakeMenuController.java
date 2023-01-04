@@ -39,7 +39,11 @@ public class SnakeMenuController {
     @FXML
     protected void startGame() {
         Stage stage = (Stage) menuGameScene.getScene().getWindow();
-        instantiateScenes.instantiateGameScene(stage);
+        try {
+            instantiateScenes.instantiateGameScene(stage);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     /**
