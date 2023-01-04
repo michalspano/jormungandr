@@ -1,5 +1,6 @@
 {
   "id": 2,
+  "name": "Tunnel Trouble",
   "gameState": {
     "sessionScore": 0,
     "direction": "RIGHT",

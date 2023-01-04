@@ -1,5 +1,6 @@
 {
   "id": 5,
+  "name": "Snake Parade",
   "gameState": {
     "sessionScore": 0,
     "direction": "DOWN",

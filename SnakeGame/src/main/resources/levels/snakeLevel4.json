@@ -1,5 +1,6 @@
 {
   "id": 4,
+  "name": "Diagonal Maze",
   "gameState": {
     "sessionScore": 0,
     "direction": "DOWN",

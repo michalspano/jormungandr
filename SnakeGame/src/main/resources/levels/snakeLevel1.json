@@ -1,5 +1,6 @@
 {
   "id": 1,
+  "name": "Chilly Meadows",
   "gameState": {
     "sessionScore": 0,
     "direction": "DOWN",

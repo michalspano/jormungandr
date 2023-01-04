@@ -1,5 +1,6 @@
 {
   "id": 3,
+  "name": "Linear Chaos",
   "gameState": {
     "sessionScore": 0,
     "direction": "RIGHT",
