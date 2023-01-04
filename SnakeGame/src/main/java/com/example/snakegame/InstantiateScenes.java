@@ -13,6 +13,7 @@ import com.example.snakegame.snake.SnakeGame;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -68,41 +69,72 @@ public class InstantiateScenes {
      *
      * @param stage the stage
      */
-    public void instantiateGameScene(Stage stage){
+    public void instantiateGameScene(Stage stage) {
         System.out.println("Starting the game... ");
 
         String levelIdentifier = SnakeMain.levelIdentifier;
 
+        // obtain the config JSON object
         JSONObject config = SnakeGameUtils.loadJSONObject("config");
-        JSONObject gameSettings = config.getJSONObject("gameSettings");
 
-        // parse the game settings from the config file (JSON) - shared for all games
-        int initSnakeSize   = gameSettings.getInt("initialSnakeSize");
-        int cellSize        = gameSettings.getInt("cellSize");
-        int rows            = gameSettings.getInt("rows");
-        int columns         = gameSettings.getInt("columns");
-        int speed           = gameSettings.getInt("speed");
-        int upperPadding    = gameSettings.getInt("upperPadding");
+        JSONObject gameSettings;
+        int initSnakeSize, cellSize;
+        int rows, columns;
+        int speed, upperPadding;
+
+        /* The config of the game is used for non-preloaded games and preloaded games with custom levels.
+         * Using a try-catch block if some values are not present in the config file.
+         * Then, a JSONException is thrown and the process does not continue.
+         */
+        try {
+            gameSettings    = config.getJSONObject("gameSettings");
+            initSnakeSize   = gameSettings.getInt("initialSnakeSize");
+            cellSize        = gameSettings.getInt("cellSize");
+            rows            = gameSettings.getInt("rows");
+            columns         = gameSettings.getInt("columns");
+            speed           = gameSettings.getInt("speed");
+            upperPadding    = gameSettings.getInt("upperPadding");
+
+        } catch (Exception exception) {
+            throw new JSONException("Ensure that the config file is in the correct format.");
+        }
 
         SnakeGame snakeGame;
 
-        if (levelIdentifier == null) { // a type of game without any preloading
+        // a type of game without any preloading
+        if (levelIdentifier == null) {
             snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed, upperPadding);
+
         } else {
             // marshal the game state from the JSON file
             JSONObject gamePreloadObject = SnakeGameUtils.loadJSONObject(levelIdentifier);
-            JSONObject gamePreload = gamePreloadObject.getJSONObject("gameState");
 
-            // parse the game state from the JSON file and assign it to the constructor of the preloaded game
+            JSONObject gamePreload;
+            int sessionScore, foodX, foodY;
+            SnakeDirection direction;
+            List<GridPiece> snake, enemyList, blockList;
 
-            int sessionScore            = gamePreload.getInt("sessionScore");
-            int foodX                   = gamePreload.getInt("foodX");
-            int foodY                   = gamePreload.getInt("foodY");
-            SnakeDirection direction    = SnakeDirection.valueOf(gamePreload.getString("direction"));
-            List<GridPiece> snake       = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("snake"));
-            List<GridPiece> enemyList   = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("enemy"));
-            List<GridPiece> blockList   = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("block"));
+            /* If the user wants to preload a game, the game state is loaded from the JSON file.
+             * Using a try-catch block if some values are not present in the JSON file.
+             * Then, a JSONException is thrown and the process does not continue.
+             * In the following step, the game state is parsed from the JSON file and assigned
+             * to the constructor of the preloaded game, given that no exception is thrown.
+             */
+            try {
+                gamePreload     = gamePreloadObject.getJSONObject("gameState");
+                sessionScore    = gamePreload.getInt("sessionScore");
+                foodX           = gamePreload.getInt("foodX");
+                foodY           = gamePreload.getInt("foodY");
+                direction       = SnakeDirection.valueOf(gamePreload.getString("direction"));
+                snake           = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("snake"));
+                enemyList       = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("enemy"));
+                blockList       = SnakeGameUtils.parseJSONArrayList(gamePreload.getJSONArray("block"));
 
+            } catch (Exception exception) {
+                throw new JSONException("Ensure that the JSON level file is in the correct format.");
+            }
+
+            // create an instance of the game with the preloaded game state
             snakeGame = new SnakeGame(initSnakeSize, cellSize, rows, columns, speed, upperPadding,
                             sessionScore, direction, foodX, foodY, snake, enemyList, blockList);
         }

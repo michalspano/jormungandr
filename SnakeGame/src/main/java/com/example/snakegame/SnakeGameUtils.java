@@ -58,12 +58,19 @@ public class SnakeGameUtils {
     /**
      * The constant JSON source part of an anonymous class.
      * We don't need to use the {@code getClass()} method here, since we are in a static context.
+     * The first 2 files define the {@code configuration} file and the {@code highscores} file.
+     * The remaining {@code JSON} files are the {@code levels} files. Use the User Manual for more information
+     * and how custom levels can be created. The {@code levels} files are stored in the {@code resources/levels} folder.
      */
     public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
         put("config", "SnakeGame/src/main/resources/config.json");
         put("score", "SnakeGame/src/main/resources/score.json");
+        // snake levels (default)
         put("snakeLevel1", "SnakeGame/src/main/resources/levels/snakeLevel1.json");
-        // TODO: add the remaining game scenarios
+        put("snakeLevel2", "SnakeGame/src/main/resources/levels/snakeLevel2.json");
+        put("snakeLevel3", "SnakeGame/src/main/resources/levels/snakeLevel3.json");
+        put("snakeLevel4", "SnakeGame/src/main/resources/levels/snakeLevel4.json");
+        put("snakeLevel5", "SnakeGame/src/main/resources/levels/snakeLevel5.json");
     }};
 
     /**
@@ -151,11 +158,18 @@ public class SnakeGameUtils {
      * @return the list
      */
     public static List<GridPiece> parseJSONArrayList(JSONArray jsonArray) {
+        // detect a null or empty array - return an empty list
+        if (jsonArray == null || jsonArray.isEmpty()) return new ArrayList<>();
+
+        // detect an array of empty object - return an empty list
+        if (jsonArray.length() == 1 && jsonArray.get(0) instanceof JSONObject) return new ArrayList<>();
+
+        // then, proceed to parse the array
         List<GridPiece> tempArray = new ArrayList<>();
         for (int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             tempArray.add(new GridPiece(
-                    jsonObject.getInt("x"), // implicit of the GridPiece object
+                    jsonObject.getInt("x"),
                     jsonObject.getInt("y"))
             );
         }

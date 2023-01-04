@@ -78,7 +78,11 @@ public class SnakeGameOverController {
     @FXML
     protected void startGame() {
         Stage stage = getCurrentStage();
-        instantiateScenes.instantiateGameScene(stage);
+        try {
+            instantiateScenes.instantiateGameScene(stage);
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
+        }
     }
 
     /**
