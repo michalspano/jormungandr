@@ -50,9 +50,9 @@ This command will create a local copy of the game on the user's machine with all
 
 The project's developers tried to make the installation as easy as possible, therefore, the source code contains the configuration of the **Build System** used - `Gradle` - as well as other required configuration files. The configuration shall contain all the dependencies needed to run and/or build the game on a local machine.
 
-However, the user needs to have a proper installation of `JDK` (Java Development Kit) on their machine. The game was developed using `JDK 17` and it is recommended to use the same version. The user can download the `JDK`[$^{[1]}$](#references).
+However, the user needs to have a proper installation of `JDK` (Java Development Kit) on their machine. The game was developed using `JDK 17` and it is recommended to use the same version. The user can download the `JDK`[[1]](#references).
 
-Moreover, it is advised to use an IDE for building and running the game. The developers used `IntelliJ IDEA` and it is recommended to use the same IDE. The user can download `IntelliJ IDEA`[$^{[2]}$](#references) (later throughout the document, the term `IDE` will refer to `IntelliJ IDEA`; version: `2022.2.3`).
+Moreover, it is advised to use an IDE for building and running the game. The developers used `IntelliJ IDEA` and it is recommended to use the same IDE. The user can download `IntelliJ IDEA`[[2]](#references) (later throughout the document, the term `IDE` will refer to `IntelliJ IDEA`; version: `2022.2.3`).
 
 ### Running/Building the Game
 
@@ -148,7 +148,7 @@ Playing a particular level is fairly easy. The user can select the level by choo
 
 ### Understanding the Level's Run Configurations
 
-Each level is stored as a `JSON`[$^{[3]}$](#references) file under `resources/levels/` directory. One would argue, why a new __run configuration__ is needed for every level? Put simply, upon running the software, we provide a command-line argument with the desired level's name; hence, a new __run configuration__ is needed for every level (where each configuration contains a different command-line argument of the level). The command-line argument is used to _preload_ the game with the specified level's attributes from a `JSON` source. The command-line argument is passed to the `main` method of the `SnakeMain` class.
+Each level is stored as a `JSON`[[3]](#references) file under `resources/levels/` directory. One would argue, why a new __run configuration__ is needed for every level? Put simply, upon running the software, we provide a command-line argument with the desired level's name; hence, a new __run configuration__ is needed for every level (where each configuration contains a different command-line argument of the level). The command-line argument is used to _preload_ the game with the specified level's attributes from a `JSON` source. The command-line argument is passed to the `main` method of the `SnakeMain` class.
 
 ### Custom Levels
 
@@ -205,7 +205,7 @@ public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
     }};
 ```
 
-Lastly, create a new __run configuration__ for the new level, where the user passes the name of the level as the __command-line argument__ (as mentioned in the previous section). Passing command-line arguments in `IntelliJ`[$^{[4]}$](#references). The passed command-line argument must correspond to the name of the `JSON` file (without the `.json` extension).
+Lastly, create a new __run configuration__ for the new level, where the user passes the name of the level as the __command-line argument__ (as mentioned in the previous section). Passing command-line arguments in `IntelliJ`[[4]](#references). The passed command-line argument must correspond to the name of the `JSON` file (without the `.json` extension).
 
 __NOTE:__ the structure, such as the key names of the `JSON` file, must be the same as the one shown above. The values of the attributes can be changed to the desired ones. Albeit bear in mind that the values of the attributes must be valid. For example, the `x` and `y` coordinates of the snake's head, body must be within the game's board's boundaries (the same, virtually, applies to the enemies and obstacles). The path `path/to/resources/` is supposed to represent the path to the `resources` directory of the project.
 
@@ -235,9 +235,9 @@ __Note:__ the structure, such as the key names of the `JSON` file, must be the s
 
 ![](docs/manual-images/background.png)
 
-# Appendix
+## Appendix
 
-## References
+### References
 
 \- [1] [`JDK 17` Installation guide](https://www.oracle.com/java/technologies/downloads/#java17)
 
