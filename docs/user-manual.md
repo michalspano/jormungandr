@@ -26,6 +26,7 @@ output: pdf_document
 - [Additional](#additional)
   - [Predefined Levels](#predefined-levels)
     - [Understanding the Level's Run Configurations](#understanding-the-levels-run-configurations)
+    - [Levels Preview](#levels-preview)
   - [Custom Levels](#custom-levels)
   - [Additional Features](#additional-features)
     - [Adjusting the Game's Preferences](#adjusting-the-games-preferences)
@@ -45,7 +46,7 @@ Trying to find its way in the world ocean between the waves, and rocks, Jörmung
 
 ## Introduction
 
-This is a **user manual** (UM) for the **Snake Game** - **Jörmungandr** - a game based on the traditional snake game with a few twists created by the **Group 10** of `DIT094` of the **University of Gothenburg**. It is intended to be used by the end user of the game, i.e. the player. Its major aim is to offer the player with the information needed to play the game and understand the game mechanics, as well as to supply the user with the information needed to install and use the game (within a local environment). Finally, as part of the game development process, the UM shall give the user with the essential knowledge regarding the technical components of the game, such as the game architecture and the game design for potential future developers.
+This is a **user manual** (UM) for the **Snake Game** - **Jörmungandr** - a game based on the traditional snake game with a few twists created by the **Group 10** of `DIT094` of the **University of Gothenburg**. It is intended to be used by the end user of the game, i.e. the player. Its major aim is to offer the player with the information needed to play the game and understand the game mechanics, as well as to supply the user with the information needed to install and use the game (within a local environment). Finally, as part of the game development process, the UM shall provide the user essential knowledge regarding the technical components of the game, such as the game architecture and the game design for potential future developers.
 
 ## Installation
 
@@ -53,14 +54,14 @@ The game is tracked using a `VCS` (Version Control System), namely `git`; hence,
 
 ```sh
 $ git clone https://git.chalmers.se/spano/project-group10.git # for HTTPS
-$ git clone https://git.chalmers.se/spano/project-group10.git # for SSH
+$ git clone git@git.chalmers.se:spano/project-group10.git     # for SSH
 ```
 
 This command will create a local copy of the game on the user's machine with all the source code therein. Optionally, since the source code of the software is published to `GitLab`, one can make use of the _'Open in your IDE'_ button to open the project in an IDE of their choice (e.g. `IntelliJ IDEA`) within the `GitLab` interface.
 
 ### Project Structure, Dependencies and Requirements
 
-The project's developers tried to make the installation as easy as possible, therefore, the source code contains the configuration of the **Build System** used - `Gradle` as well as other required configuration files. The configuration shall contain all the dependencies needed to run and/or build the game on a local machine.
+The project's developers tried to make the installation as easy as possible, therefore, the source code contains the configuration of the **Build System** used - `Gradle` - as well as other required configuration files. The configuration shall contain all the dependencies needed to run and/or build the game on a local machine.
 
 However, the user needs to have a proper installation of `JDK` (Java Development Kit) on their machine. The game was developed using `JDK 17` and it is recommended to use the same version. The user can download the `JDK`[$^{[1]}$](#references).
 
@@ -68,7 +69,7 @@ Moreover, it is advised to use an IDE for building and running the game. The dev
 
 ### Running/Building the Game
 
-As mentioned previously, the game is built using `Gradle` and the configuration files are included in the source code. Within the `IDE`, the user can _run_ the game by clicking on the `Run` button (selecting `snake (default)` as the configuration; the `demo` sub-folder will be later explained in the subsequent chapter), or _build_ the game by clicking on the `Build` button (selecting `snake (default)` as the configuration). This will only turn to be successful if the user has a proper installation of `JDK` on their machine and the `JDK` is properly configured within the `IDE`.
+As mentioned previously, the game is built using `Gradle` and the configuration files are included in the source code. Within the `IDE`, the user can _run_ the game by clicking on the `Run` button (selecting `snake (default)` as the configuration; the `levels` sub-folder will be later explained in the subsequent chapter), or _build_ the game by clicking on the `Build` button (selecting `snake (default)` as the configuration). This will only turn to be successful if the user has a proper installation of `JDK` on their machine and the `JDK` is properly configured within the `IDE`.
 
 ## Game Interface
 
@@ -91,10 +92,12 @@ Having clicked on the `Start` button in the previous screen, the user is redirec
      - The __current__ score
      - The __maximum__ score
    - The generated __terrain__ (the game board)
-     - The __snake__ (and it's parts)
+     - The __snake__ (and its parts)
      - The __consumables__ (food)
      - The _'Trons'_ (enemies)
      - The __obstacles__ (walls, blocks)
+
+\pagebreak
 
 #### Table of The Game Elements
 
@@ -118,7 +121,7 @@ The game is based on the principles of the traditional snake game. The snake's o
 
 Instead of using the `W`, `A`, `S`, `D` keys, the user can also use the `UP`, `LEFT`, `DOWN`, `RIGHT` arrow keys respectively.
 
-The goal of the game is to eat as much food as possible. The snake's length increases by one unit for each food eaten. The snake's length is limited by the game's board. If the snake's length reaches the maximum length of the game's board, the snake dies. The snake dies if it hits an obstacle, i.e., a _'Tron'_. Furthermore, the snake dies if it hits itself. Ultimately, the snake dies if it hits the game's board's boundaries, i.e., the walls.
+The goal of the game is to eat as much food as possible. The snake's length increases by one unit for each food eaten. The snake's length is limited by the game's board. If the snake's length reaches the maximum length of the game's board, the snake dies. The snake dies if it hits an enemy, i.e., a _'Tron'_ or the obstacles. Furthermore, the snake dies if it hits itself. Ultimately, the snake dies if it hits the game's board's boundaries, i.e., the walls.
 
 Upon eating the __consumable__, the score of the player is incremented by a single unit. Moreover, a new __consumable__ is generated on the game's board. The __consumable__ is generated at a random position on the game's board. The __consumable__ is generated at a position where there is no __snake__ part, no _'Tron'_ and no obstacle; hence, the __consumable__ is generated at a position where the snake can eat it. Simultaneously, the position of the enemies, i.e _'Trons'_ is randomly changed.
 
@@ -148,23 +151,30 @@ The game comes with five pre-defined levels that the user can choose from. These
 
 Playing a particular level is fairly easy. The user can select the level by choosing the corresponding __run configuration__ within the `IDE` which shall _preload_ the game with the specified level's attributes whilst compiling and running the software. The following list contains the corresponding __run configurations__ for each level that comes with the game:
 
-- `levels/SnakeLevel1`,
-- `levels/SnakeLevel2`,
-- `levels/SnakeLevel3`,
-- `levels/SnakeLevel4`,
-- `levels/SnakeLevel5`.
+- `levels/SnakeLevel1` - **Chilly Meadows**,
+- `levels/SnakeLevel2` - **Tunnel Trouble**,
+- `levels/SnakeLevel3` - **Linear Chaos**,
+- `levels/SnakeLevel4` - **Diagonal Maze**,
+- `levels/SnakeLevel5` - **Snake Parade**.
 
-#### Understanding the Level's Run Configurations
+\pagebreak
 
-Each level is store as a `JSON`[$^{[3]}$](#references) file under `resources/levels/` directory. One would argue, why a new __run configuration__ is needed for every level? Put simply, upon running the software, we provide a command-line argument with the desired level's name; hence, a new __run configuration__ is needed for every level (where each configuration contains a different command-line argument of the level). The command-line argument is used to _preload_ the game with the specified level's attributes from a `JSON` source. The command-line argument is passed to the `main` method of the `SnakeMain` class.
+### Levels Preview
+
+![Levels Preview](manual-images/levels.png)
+
+### Understanding the Level's Run Configurations
+
+Each level is stored as a `JSON`[$^{[3]}$](#references) file under `resources/levels/` directory. One would argue, why a new __run configuration__ is needed for every level? Put simply, upon running the software, we provide a command-line argument with the desired level's name; hence, a new __run configuration__ is needed for every level (where each configuration contains a different command-line argument of the level). The command-line argument is used to _preload_ the game with the specified level's attributes from a `JSON` source. The command-line argument is passed to the `main` method of the `SnakeMain` class.
 
 ### Custom Levels
 
-Besides the pre-defined levels, the user can also create their own levels. The purpose may be to test the game's functionalities or, simply, for fun. The user can create their own levels by creating a `JSON` file with a distinct name under `resources/levels/` directory. As part of the software, a __parser__ of `JSON` files is implemented to interpret such source files to the game's level attributes. The `JSON` file must contain the following attributes (with some dummy values); keep in mind that the comments are not part of the `JSON` file (they are only for the sake of the explanation):
+Besides the pre-defined levels, the user can also create their own levels. The purpose may be to test the game's functionalities or, simply, for fun. The user can create their own levels by creating a `JSON` file with a distinct name under `resources/levels/` directory. As part of the software, a __parser__ of `JSON` files is implemented to interpret such source files to the game's level attributes. The `JSON` file must contain the following attributes (these are just some dummy values, in the example, for documentation purposes); keep in mind that the comments are not part of the `JSON` file (they are only for the sake of explanation):
 
 ```json
 {
   "id": "some-unique-id",
+  "name": "some-level-name",
   "gameState": {
     "sessionScore": 0, // the score of the player
     "direction": "any-direction", // UP, DOWN, LEFT, RIGHT
@@ -198,7 +208,7 @@ Besides the pre-defined levels, the user can also create their own levels. The p
 }
 ```
 
-Secondly, we need to _'tell'_ the game to recognize such a file as a __level__ for the game. Thereby, the user must navigate to the `SnakeGameUtils.java` file (under `java` source directory) and add the following line of code (line 62; TODO: could change):
+Secondly, we need to _'tell'_ the game to recognize such a file as a __level__ for the game. Thereby, the user must navigate to the `SnakeGameUtils.java` file (under `java` source directory) and add the following line of code (line 65):
 
 ```java
 public static final Map<String, String> JSON_SOURCES = new HashMap<>() {{
@@ -222,7 +232,7 @@ A further set of features are implemented in the game. These features are not pa
 
 ### Adjusting the Game's Preferences
 
-Similarly to creating __custom levels__ (as mentioned in the previous section), the user can similarly adjust the game's preferences, such as the game's speed or the settings of the interface. The user can do so by altering the `config.json` file found under `resources` folder. The file must contain the following attributes (with the default values):
+Similarly to creating __custom levels__ (as mentioned in the previous section), the user can likewise adjust the game's preferences, such as the game's speed or the settings of the interface. The user can do so by altering the `config.json` file found under `resources` folder. The file must contain the following attributes (with the default values):
 
 ```json
 {
@@ -258,7 +268,7 @@ __Note:__ the structure, such as the key names of the `JSON` file, must be the s
 
 ### Closing Remarks
 
-#### The navigation from `gameOver` to `menu` takes too long
+### The navigation from `gameOver` to `menu` takes too long
 
 This is a known issue. The reason is that the `menu` scene is loaded with a `gif` image as background. This image is quite heavy and takes a lot of time to load. Hence, the user has to wait for the image to load before being able to access the 
 `menu` scene. However, since the user does not have to access this scene often, i.e., the game can be restarted from the `gameOver` scene, this issue is not considered
