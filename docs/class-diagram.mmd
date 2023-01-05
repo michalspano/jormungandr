@@ -1,0 +1,132 @@
+---
+title: The Snake Game - Jörmungandr - Class Diagram
+---
+
+classDiagram
+    direction BT
+    class GridPiece {
+      + GridPiece(int, int)
+      - int yCoordinate
+      - int xCoordinate
+      + toString() String
+      + setX(int) void
+      + setY(int) void
+      + getX() int
+      + getY() int
+    }
+    class InstantiateScenes {
+      + InstantiateScenes()
+      + instantiateGameScene(Stage) void
+      - initialiseFXMLLoader(String) FXMLLoader
+      + instantiateGameOverScene(Stage, int) void
+      + instantiateMenuScene(Stage) void
+    }
+    class QuoteGenerator {
+      + QuoteGenerator(String)
+      - String QUOTE_SOURCE
+      + String PROJECT_RESOURCE
+      - List~String~ QUOTES
+      + getQUOTES() List~String~
+      + getRandomQuote() String
+      + loadQuotes() List~String~
+      + getQuoteFile() String
+    }
+    class SnakeDirection {
+    <<enumeration>>
+      - SnakeDirection()
+      +  UP
+      +  DOWN
+      +  LEFT
+      +  RIGHT
+      + values() SnakeDirection[]
+      + valueOf(String) SnakeDirection
+    }
+    class SnakeGame {
+      + SnakeGame(int, int, int, int, int, int)
+      + SnakeGame(int, int, int, int, int, int, int, SnakeDirection, int, int, List~GridPiece~, List~GridPiece~, List~GridPiece~)
+      - List~GridPiece~ ENEMY_LIST
+      + int ENEMY_COUNT
+      - int UPPER_PADDING
+      - SnakeDirection direction
+      - int COLUMN_COUNT
+      - boolean isPreloaded
+      - List~GridPiece~ SNAKE
+      - int INITIAL_SNAKE_SIZE
+      - int speed
+      - int currentScore
+      - int foodX
+      + int BLOCK_COUNT
+      + int BLOCK_SIZE
+      - int CELL_SIZE
+      - boolean gameOver
+      - int ROW_COUNT
+      - int foodY
+      - List~GridPiece~ BLOCKS_LIST
+      - int MAX_SCORE
+      - generateRandomNonOverlappingGridPosition() int[]
+      - generateNewConsumable() void
+      + tick(GraphicsContext) void
+      - setInitialGameStates() void
+      + start(Stage) void
+      - generateNewEnemy() void
+      - generateBlockTerrain() void
+      + toString() String
+    }
+    class SnakeGameOverController {
+      + SnakeGameOverController()
+      + Label gameOverHeading
+      - Label finalScoreCounter
+      - AnchorPane gameOverScene
+      + ImageView gameOverAnimation
+      - Button restartButton
+      ~ InstantiateScenes instantiateScenes
+      - Label randomQuote
+      - Button homeButton
+      - getCurrentStage() Stage
+      # setRandomQuoteLabel() void
+      # startGame() void
+      # goToMenu() void
+      # setUserScore(int) void
+    }
+    class SnakeGameUtils {
+      + SnakeGameUtils()
+      + Random random
+      + Map~String, String~ JSON_SOURCES
+      + Map~String, Image~ IMAGES
+      + Map~String, String~ CSS_STYLES
+      + snakeLogger(List~GridPiece~) void
+      + loadJSONObject(String) JSONObject
+      + getOverallMaxScore() int
+      + getLevelIdentifier(String[]) String
+      + applyExitGameAlertToStage(Stage) void
+      + currentScene(ActionEvent) String
+      + updateGameSession(int) void
+      + exitGameAlert(Parent) void
+      + detectCollisionOverIterable(int, int, List~?~) boolean
+      + parseJSONArrayList(JSONArray) List~GridPiece~
+      + TODO() void
+      + drawImage(GraphicsContext, String, int, int, int, int) void
+    }
+    class SnakeMain {
+      + SnakeMain()
+      + String levelIdentifier
+      + main(String[]) void
+      + start(Stage) void
+    }
+    class SnakeMenuController {
+      + SnakeMenuController()
+      - AnchorPane menuGameScene
+      - Button startButton
+      + ImageView logo
+      ~ InstantiateScenes instantiateScenes
+      - Button exitButton
+      - Label snakeHeading
+      + ImageView menuBackground
+      # startGame() void
+      # exitGame() void
+    }
+    SnakeGame "1" *--> "SNAKE *" GridPiece
+    SnakeGame "1" *--> "direction 1" SnakeDirection
+    SnakeGameOverController "1" *--> "instantiateScenes 1" InstantiateScenes
+    SnakeGameUtils  ..>  GridPiece
+    SnakeMenuController "1" *--> "instantiateScenes 1" InstantiateScenes

@@ -13,7 +13,7 @@ repositories {
 }
 
 ext {
-    junitVersion = '5.8.2'
+    junitVersion = '5.9.0'
 }
 
 sourceCompatibility = '17'
@@ -37,7 +37,7 @@ dependencies {
     implementation('com.github.almasb:fxgl:17.1') {
         exclude(group: 'org.openjfx')
     }
-
+    implementation 'org.json:json:20220924'
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
