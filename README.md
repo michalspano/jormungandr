@@ -40,8 +40,8 @@ This is a **user manual** (UM) for the **Snake Game** - **Jörmungandr** - a gam
 The game is tracked using a `VCS` (Version Control System), namely `git`; hence, it can be easily downloaded using the following **command** (assuming that `git` is installed on the user's machine):
 
 ```sh
-$ git clone https://git.chalmers.se/spano/project-group10.git # for HTTPS
-$ git clone git@git.chalmers.se:spano/project-group10.git     # for SSH
+$ git clone https://github.com/michalspano/jormungandr.git # for HTTPS
+$ git@github.com:michalspano/jormungandr.git               # for SSH
 ```
 
 This command will create a local copy of the game on the user's machine with all the source code therein. Optionally, since the source code of the software is published to `GitLab`, one can make use of the _'Open in your IDE'_ button to open the project in an IDE of their choice (e.g. `IntelliJ IDEA`) within the `GitLab` interface.
