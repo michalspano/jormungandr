@@ -1,0 +1,13 @@
+{
+  "id": 0,
+  "name": "some name",
+  "gameState": {
+    "sessionScore": 0,
+    "direction": null,
+    "foodX": 0,
+    "foodY": 0,
+    "snake": [ { "x": 0, "y": 0 } ],
+    "enemy": [ {} ],
+    "block": [ {} ]
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "gameSettings": {
+    "initialSnakeSize": 3,
+    "cellSize": 40,
+    "rows": 25,
+    "columns": 25,
+    "speed": 8,
+    "upperPadding": 2
+  }
+}
